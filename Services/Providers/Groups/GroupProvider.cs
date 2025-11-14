@@ -1,4 +1,4 @@
-﻿namespace Services;
+﻿namespace Services.Providers.Groups;
 
 internal class GroupProvider : IGroupProvider
 {

@@ -2,7 +2,7 @@
 using Data.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace Services;
+namespace Services.Providers.Students;
 
 public class IncorrectGroupData : Exception
 {
