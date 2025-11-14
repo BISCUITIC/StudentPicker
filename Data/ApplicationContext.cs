@@ -1,4 +1,5 @@
 ﻿using Data.Configurations;
+using Data.ConnectionConfig;
 using Data.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
