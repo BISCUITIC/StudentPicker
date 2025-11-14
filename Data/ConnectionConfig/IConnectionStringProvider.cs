@@ -1,7 +1,6 @@
-﻿namespace Data.ConnectionConfig
+﻿namespace Data.ConnectionConfig;
+
+internal interface IConnectionStringProvider
 {
-    public interface IConnectionStringProvider
-    {
-        string? GetConnectionString(string connectionType);
-    }
+    string? GetConnectionString(string connectionType);
 }
