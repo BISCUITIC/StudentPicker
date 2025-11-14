@@ -4,23 +4,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services;
 
-internal class IncorrectGroupData : Exception
+public class IncorrectGroupData : Exception
 {
     public IncorrectGroupData(string? message) : base(message) { }
 }
 
-internal class StudentProvider : IStudentProvider
+public class StudentProvider : IStudentProvider
 {
     private readonly ApplicationContext _context;
 
-    public StudentProvider(ApplicationContext applicationContext) 
+    public StudentProvider(ApplicationContext applicationContext)
     {
         _context = applicationContext;
     }
 
     public List<Student> GetStudents(int groupNumber, char groupLetter)
     {
-        return _context.Students  
+        return _context.Students
                        .Include(student => student.StudyGroup)
                        .Where(student => student.StudyGroup.Number == groupNumber &&
                                          student.StudyGroup.Letter == groupLetter)

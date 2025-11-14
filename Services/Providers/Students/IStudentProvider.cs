@@ -2,7 +2,7 @@
 
 namespace Services;
 
-internal interface IStudentProvider
+public interface IStudentProvider
 {
     List<Student> GetStudents(int groupNumber, char groupLetter);
 }

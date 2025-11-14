@@ -13,9 +13,9 @@ public class ApplicationContext : DbContext
 
     private readonly IConnectionStringProvider _connection;
 
-    public ApplicationContext()
+    public ApplicationContext(IConnectionStringProvider connection)
     {
-        _connection = new ConnectionStringProvider();
+        _connection = connection;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
