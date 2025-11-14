@@ -11,5 +11,7 @@ internal class GroupConfiguration : IEntityTypeConfiguration<Group>
         builder.ToTable("groups");
 
         builder.HasKey(group => group.Id);
+        
+        builder.HasAlternateKey(group => new { group.Number, group.Letter});
     }
 }

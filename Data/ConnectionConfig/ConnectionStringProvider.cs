@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Data;
+namespace Data.ConnectionConfig;
 
 public class ConnectionStringProvider : IConnectionStringProvider
 {
