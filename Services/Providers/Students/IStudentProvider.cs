@@ -1,6 +1,6 @@
 ﻿using Data.Model;
 
-namespace Services;
+namespace Services.Providers.Students;
 
 public interface IStudentProvider
 {

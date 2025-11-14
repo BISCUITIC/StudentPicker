@@ -1,6 +1,6 @@
 ﻿using Data;
 using Data.ConnectionConfig;
-using Services.Providers.Srudent;
+using Services.Providers.Students;
 
 namespace BackEndTest;
 
@@ -13,7 +13,7 @@ internal class Program
 
         StudentProvider studentProvider = new StudentProvider(context);
 
-        foreach (var s in studentProvider.GetStudents(11, 'A'))
+        foreach (var s in studentProvider.GetStudents(11, 'd'))
         {
             Console.WriteLine(s.FullName);
         }
