@@ -13,7 +13,7 @@ public class StudentRepository : IStudentRepository
         _context = applicationContext;
     }
 
-    public List<Student> GetByGroup(Group group)
+    public List<Student> GetAllByGroup(Group group)
     {
         return _context.Students
                        .Include(student => student.StudyGroup)

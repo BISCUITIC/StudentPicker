@@ -17,8 +17,8 @@ internal class Program
             IGroupRepository groupProvider = new GroupRepository(context);
             IStudentRepository studentProvider = new StudentRepository(context);
 
-            Group group = groupProvider.Get(11, 'A');
-            List<Student> students = studentProvider.GetByGroup(group);
+            Group group = groupProvider.GetById(1) ?? throw new Exception();
+            List<Student> students = studentProvider.GetAllByGroup(group);
 
             foreach (Student student in students)
             {

@@ -4,5 +4,5 @@ namespace Application.Interfaces;
 
 public interface IStudentRepository
 {
-    List<Student> GetByGroup(Group group);
+    List<Student> GetAllByGroup(Group group);
 }

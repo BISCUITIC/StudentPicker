@@ -4,5 +4,6 @@ namespace Application.Interfaces;
 
 public interface IGroupRepository
 {
-    Group Get(int groupNumber, char groupLetter);
+    IReadOnlyCollection<Group> GetAll();
+    Group GetById(int groupId);
 }
