@@ -1,8 +1,8 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 using Infrastructure;
-using Infrastructure.ConnectionConfig;
 using Infrastructure.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace BackEndTest;
 
@@ -10,7 +10,10 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        IConnectionStringProvider connection = new ConnectionStringProvider();
+        IConfigurationRoot connection = new ConfigurationBuilder()
+                          .AddJsonFile("appsettings.json")
+                          .SetBasePath(Directory.GetCurrentDirectory())
+                          .Build(); ;
 
         using (ApplicationContext context = new ApplicationContext(connection))
         {

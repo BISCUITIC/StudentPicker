@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Infrastructure.Configurations;
-using Infrastructure.ConnectionConfig;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure;
@@ -11,9 +11,9 @@ public class ApplicationContext : DbContext
     public DbSet<Group> Groups { get; set; } = null!;
     public DbSet<Student> Students { get; set; } = null!;
 
-    private readonly IConnectionStringProvider _connection;
+    private readonly IConfigurationRoot _connection;
 
-    public ApplicationContext(IConnectionStringProvider connection)
+    public ApplicationContext(IConfigurationRoot connection)
     {
         _connection = connection;
     }
