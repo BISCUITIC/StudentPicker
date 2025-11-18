@@ -1,4 +1,4 @@
-﻿namespace Data.Model;
+﻿namespace Domain.Entities;
 
 public class Student
 {

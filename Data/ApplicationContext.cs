@@ -1,10 +1,10 @@
-﻿using Data.Configurations;
-using Data.ConnectionConfig;
-using Data.Model;
+﻿using Domain.Entities;
+using Infrastructure.Configurations;
+using Infrastructure.ConnectionConfig;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Data;
+namespace Infrastructure;
 
 public class ApplicationContext : DbContext
 {

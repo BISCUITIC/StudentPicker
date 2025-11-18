@@ -1,6 +1,8 @@
-﻿using Data;
-using Data.ConnectionConfig;
-using Services.Providers.Students;
+﻿using Application.Interfaces;
+using Domain.Entities;
+using Infrastructure;
+using Infrastructure.ConnectionConfig;
+using Infrastructure.Repositories;
 
 namespace BackEndTest;
 
@@ -8,16 +10,20 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        ConnectionStringProvider connection = new ConnectionStringProvider();
-        ApplicationContext context = new ApplicationContext(connection);
+        IConnectionStringProvider connection = new ConnectionStringProvider();
 
-        StudentProvider studentProvider = new StudentProvider(context);
-
-        foreach (var s in studentProvider.GetStudents(11, 'd'))
+        using (ApplicationContext context = new ApplicationContext(connection))
         {
-            Console.WriteLine(s.FullName);
-        }
+            IGroupRepository groupProvider = new GroupRepository(context);
+            IStudentRepository studentProvider = new StudentRepository(context);
 
-        context.Dispose();
+            Group group = groupProvider.Get(11, 'A');
+            List<Student> students = studentProvider.GetByGroup(group);
+
+            foreach (Student student in students)
+            {
+                Console.WriteLine(student.FullName);
+            }
+        }
     }
 }

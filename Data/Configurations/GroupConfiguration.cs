@@ -1,8 +1,8 @@
-﻿using Data.Model;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Configurations;
+namespace Infrastructure.Configurations;
 
 internal class GroupConfiguration : IEntityTypeConfiguration<Group>
 {
@@ -11,7 +11,7 @@ internal class GroupConfiguration : IEntityTypeConfiguration<Group>
         builder.ToTable("groups");
 
         builder.HasKey(group => group.Id);
-        
-        builder.HasAlternateKey(group => new { group.Number, group.Letter});
+
+        builder.HasAlternateKey(group => new { group.Number, group.Letter });
     }
 }

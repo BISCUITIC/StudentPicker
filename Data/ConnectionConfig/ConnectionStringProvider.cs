@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Data.ConnectionConfig;
+namespace Infrastructure.ConnectionConfig;
 
 public class ConnectionStringProvider : IConnectionStringProvider
 {
@@ -8,7 +8,7 @@ public class ConnectionStringProvider : IConnectionStringProvider
     private readonly IConfigurationRoot _config;
 
     private const string PATH_JSON_CONFIG = "appsettings.json";
-    
+
     public ConnectionStringProvider()
     {
         _builder = new ConfigurationBuilder();
@@ -18,7 +18,7 @@ public class ConnectionStringProvider : IConnectionStringProvider
     }
 
     public string? GetConnectionString(string connectionType)
-    {        
+    {
         return _config.GetConnectionString(connectionType);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Data.ConnectionConfig;
+﻿namespace Infrastructure.ConnectionConfig;
 
 public interface IConnectionStringProvider
 {
