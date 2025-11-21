@@ -17,7 +17,7 @@
                                             .Build();
 
             ServiceCollection services = new ServiceCollection();
-            services.AddSingleton(connection);        
+            services.AddSingleton<IConfigurationRoot>(connection);        
             services.AddDbContext<ApplicationContext>();
 
             services.AddScoped<IGroupRepository, GroupRepository>();
