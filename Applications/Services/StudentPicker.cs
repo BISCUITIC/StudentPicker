@@ -1,5 +1,5 @@
 ﻿namespace Application.Services;
 
-internal class StudentPicker
+public class StudentPicker
 {
 }

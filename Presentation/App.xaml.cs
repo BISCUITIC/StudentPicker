@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Services;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +31,9 @@ public partial class App : System.Windows.Application
 
                         services.AddScoped<IGroupRepository, GroupRepository>();
                         services.AddScoped<IStudentRepository, StudentRepository>();
-                        
+
+                        services.AddScoped<GroupProvider>();
+
                         services.AddSingleton<MainWindow>();
                     }).Build();
     }
