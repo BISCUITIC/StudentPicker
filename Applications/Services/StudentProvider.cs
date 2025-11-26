@@ -1,14 +1,9 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services;
 
-internal class StudentProvider
+public class StudentProvider
 {
     private readonly IStudentRepository _studentRepository;
 

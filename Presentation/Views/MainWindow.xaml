@@ -20,6 +20,10 @@
                       ItemsPanel="{StaticResource ResourceKey=GroupItemPanel}"
                       ItemTemplate="{StaticResource ResourceKey=GroupItemTemplate}">
         </ItemsControl >
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding Students}">
+            
+        </ListBox>
         
         <Button Grid.Row="2" x:Name="RandomButton"                 
                 Style="{StaticResource ResourceKey = RandomButtonStyle}"/>

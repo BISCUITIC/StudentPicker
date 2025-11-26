@@ -8,10 +8,10 @@ namespace Presentation;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow(GroupsViewModel groupViewModel)
+    public MainWindow(WindowContext windowContext)
     {
         InitializeComponent();
         
-        DataContext = groupViewModel;
+        DataContext = windowContext;        
     }
 }
