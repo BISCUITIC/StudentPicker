@@ -5,6 +5,7 @@ using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Presentation.ViewModels;
 using System.IO;
 using System.Windows;
 
@@ -20,8 +21,8 @@ public partial class App : System.Windows.Application
     public App()
     {
         IConfigurationRoot connection = new ConfigurationBuilder()
-                                        .AddJsonFile("appsettings.json")
                                         .SetBasePath(Directory.GetCurrentDirectory())
+                                        .AddJsonFile("appsettings.json")
                                         .Build();
         _host = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
@@ -33,6 +34,8 @@ public partial class App : System.Windows.Application
                         services.AddScoped<IStudentRepository, StudentRepository>();
 
                         services.AddScoped<GroupProvider>();
+
+                        services.AddScoped<GroupsViewModel>();
 
                         services.AddSingleton<MainWindow>();
                     }).Build();

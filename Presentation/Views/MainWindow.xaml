@@ -7,8 +7,21 @@
         mc:Ignorable="d"
         Style="{StaticResource ResourceKey = WindowStyle}">
 
-    <StackPanel>
-        <Button x:Name="RandomButton"                 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <ItemsControl Grid.Row="0" x:Name="GroupList"
+                      Background="#FF2E2E2E"
+                      ItemsSource="{Binding Groups}"
+                      ItemsPanel="{StaticResource ResourceKey=GroupItemPanel}"
+                      ItemTemplate="{StaticResource ResourceKey=GroupItemTemplate}">
+        </ItemsControl >
+        
+        <Button Grid.Row="2" x:Name="RandomButton"                 
                 Style="{StaticResource ResourceKey = RandomButtonStyle}"/>
-    </StackPanel>
+    </Grid>
 </Window>

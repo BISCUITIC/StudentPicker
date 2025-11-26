@@ -1,4 +1,4 @@
-﻿using Application.Services;
+﻿using Presentation.ViewModels;
 using System.Windows;
 
 namespace Presentation;
@@ -8,14 +8,10 @@ namespace Presentation;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow(GroupProvider groupProvider)
+    public MainWindow(GroupsViewModel groupViewModel)
     {
         InitializeComponent();
-        string s = "";
-        foreach(var i in groupProvider.GetGroups())
-        {
-            s += i.Id.ToString();
-        }
-        MessageBox.Show(s);
+        
+        DataContext = groupViewModel;
     }
 }

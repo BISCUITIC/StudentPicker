@@ -4,8 +4,7 @@
 
         <Style.Setters>
             <Setter Property="Content" Value="Random"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Margin" Value="30, 10, 30, 10"/>
+            <Setter Property="Margin" Value="40,7,40,7"/>
             <Setter Property="Background" Value="#FF636363" />
             <Setter Property="Foreground" Value="White"/>
 
