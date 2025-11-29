@@ -14,13 +14,13 @@ public partial class MainWindow : Window
     public MainWindow(WindowContext windowContext)
     {
         InitializeComponent();
-        
+
         _windowContext = windowContext;
-        DataContext = _windowContext;        
+        DataContext = _windowContext;
     }
 
     public void LoadGroup_Executed(object sender, ExecutedRoutedEventArgs e)
-    {     
+    {
         _windowContext.LoadGroup_Executed(sender, e);
     }
 }
