@@ -19,6 +19,7 @@ public class StudentsViewModel
 
     public void LoadStudents(Group group)
     {        
+        _students.Clear();
         IReadOnlyCollection<Student> students = _studentProvider.GetStudents(group);
         foreach (var student in students)
         {

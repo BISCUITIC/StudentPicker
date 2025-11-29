@@ -9,8 +9,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/WindowStyle.xaml" />
                 <ResourceDictionary Source="/Resources/RandomButtonStyle.xaml"/>
-                <ResourceDictionary Source="/Resources/GroupItemTemplate.xaml"/>
-                <ResourceDictionary Source="/Resources/GroupItemPanel.xaml"/>
+                
+                <ResourceDictionary Source="/Resources/Group/GroupItemPanel.xaml"/>
+                <ResourceDictionary Source="/Resources/Group/GroupItemTemplate.xaml"/>
+                
+                <ResourceDictionary Source="/Resources/Student/StudentItemPanel.xaml"/>
+                <ResourceDictionary Source="/Resources/Student/StudentItemTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

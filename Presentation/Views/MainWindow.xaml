@@ -4,28 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
+        xmlns:localCommands="clr-namespace:Presentation.Commands"        
         mc:Ignorable="d"
         Style="{StaticResource ResourceKey = WindowStyle}">
-
+    <Window.CommandBindings>
+        <CommandBinding Command="localCommands:WindowCommands.LoadGroup" Executed="LoadGroup_Executed"/>
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <ItemsControl Grid.Row="0" x:Name="GroupList"
                       Background="#FF2E2E2E"
                       ItemsSource="{Binding Groups}"
-                      ItemsPanel="{StaticResource ResourceKey=GroupItemPanel}"
-                      ItemTemplate="{StaticResource ResourceKey=GroupItemTemplate}">
-        </ItemsControl >
+                      ItemsPanel="{StaticResource GroupItemPanel}"
+                      ItemTemplate="{StaticResource GroupItemTemplate}"/>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Students}">
-            
-        </ListBox>
-        
+        <ItemsControl Grid.Row="1" x:Name="StudentList"
+                      ItemsSource="{Binding Students}"
+                      ItemsPanel="{StaticResource StudentItemPanel}"
+                      ItemTemplate="{StaticResource StudentItemTemplate}"/>
+
+
+
+
         <Button Grid.Row="2" x:Name="RandomButton"                 
-                Style="{StaticResource ResourceKey = RandomButtonStyle}"/>
+                Style="{StaticResource RandomButtonStyle}"/>
     </Grid>
 </Window>

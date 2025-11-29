@@ -1,5 +1,7 @@
 ﻿using Domain.Entities;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Presentation.ViewModels;
 
@@ -15,5 +17,13 @@ public class WindowContext
     {
         _groupsViewModel = groupsViewModel;
         _studentsViewModel = studentsViewModel;
+    }
+
+    public void LoadGroup_Executed(object sender, ExecutedRoutedEventArgs e)
+    {        
+        Group? group = (e.Parameter as Group);     
+
+        if (group is not null)        
+            _studentsViewModel.LoadStudents(group);        
     }
 }

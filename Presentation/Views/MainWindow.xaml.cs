@@ -1,5 +1,6 @@
 ﻿using Presentation.ViewModels;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Presentation;
 
@@ -8,10 +9,18 @@ namespace Presentation;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private readonly WindowContext _windowContext;
+
     public MainWindow(WindowContext windowContext)
     {
         InitializeComponent();
         
-        DataContext = windowContext;        
+        _windowContext = windowContext;
+        DataContext = _windowContext;        
+    }
+
+    public void LoadGroup_Executed(object sender, ExecutedRoutedEventArgs e)
+    {     
+        _windowContext.LoadGroup_Executed(sender, e);
     }
 }
