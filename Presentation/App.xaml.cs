@@ -33,8 +33,8 @@ public partial class App : System.Windows.Application
                         services.AddScoped<IGroupRepository, GroupRepository>();
                         services.AddScoped<IStudentRepository, StudentRepository>();
 
-                        services.AddScoped<StudentProvider>();
-                        services.AddScoped<GroupProvider>();
+                        services.AddScoped<StudentService>();
+                        services.AddScoped<GroupService>();
 
                         services.AddScoped<StudentsViewModel>();
                         services.AddScoped<GroupsViewModel>();

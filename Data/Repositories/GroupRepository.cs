@@ -26,4 +26,9 @@ public class GroupRepository : IGroupRepository
                        .FirstOrDefault(group => group.Id == groupId)
                        ?? throw new GroupNotFoundException($"No group with such id {groupId}");
     }
+
+    public void Update(Group newGroup)
+    {
+        _context.Groups.Update(newGroup);
+    }
 }

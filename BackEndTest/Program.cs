@@ -29,7 +29,7 @@ internal class Program
         var studentProvider = provider.GetRequiredService<IStudentRepository>();
 
         Group group = groupProvider.GetById(1) ?? throw new Exception();
-        List<Student> students = studentProvider.GetAllByGroup(group);
+        List<Student> students = studentProvider.GetAllByGroupId(group);
 
         foreach (Student student in students)
         {

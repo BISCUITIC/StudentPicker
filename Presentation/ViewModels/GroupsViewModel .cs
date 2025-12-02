@@ -1,30 +1,31 @@
 ﻿using System.Collections.ObjectModel;
 using Application.Services;
 using Domain.Entities;
+using Presentation.Models;
 
 namespace Presentation.ViewModels;
 
 public class GroupsViewModel
 {
-    private readonly GroupProvider _groupProvider;
-    private readonly ObservableCollection<Group> _groups;
+    private readonly GroupService _groupProvider;
+    private readonly ObservableCollection<GroupModel> _groups;
 
-    public ObservableCollection<Group> Groups { get => _groups; }
+    public ObservableCollection<GroupModel> Groups { get => _groups; }
 
-    public GroupsViewModel(GroupProvider groupProvider)
+    public GroupsViewModel(GroupService groupProvider)
     {
         _groupProvider = groupProvider;
-        _groups = new ObservableCollection<Group>();
+        _groups = new ObservableCollection<GroupModel>();
 
         LoadGroups();
     }
 
     private void LoadGroups()
     {
-        IReadOnlyCollection<Group> groups = _groupProvider.GetGroups();
+        IReadOnlyCollection<Group> groups = _groupProvider.GetAllGroups();
         foreach (var group in groups)
         {
-            _groups.Add(group);
+            _groups.Add(new GroupModel(group));
         }
     }
 }

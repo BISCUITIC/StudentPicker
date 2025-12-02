@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
@@ -13,12 +12,34 @@ public class StudentRepository : IStudentRepository
         _context = applicationContext;
     }
 
-    public List<Student> GetAllByGroup(Group group)
+    public List<Student> GetAllByGroupId(int groupId)
     {
         return _context.Students
-                       .Include(student => student.StudyGroup)
-                       .Where(student => student.StudyGroup.Number == group.Number &&
-                                         student.StudyGroup.Letter == group.Letter)
+                       .Where(student => student.GroupId == groupId)
                        .ToList();
+    }
+
+    public Student GetById(int studentId)
+    {
+        return _context.Students
+                       .First(student => student.Id == studentId);
+    }
+
+    public void Add(Student student)
+    {
+        _context.Add(student);
+        _context.SaveChanges();
+    }
+
+    public void Remove(Student student)
+    {
+        _context.Remove(student);
+        _context.SaveChanges();
+    }
+
+    public void Update(Student student)
+    {
+        _context.Students.Update(student);
+        _context.SaveChanges();
     }
 }

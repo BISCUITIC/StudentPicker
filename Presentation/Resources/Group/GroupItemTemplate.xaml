@@ -12,21 +12,22 @@
                 <Setter.Value>
                     <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
                 </Setter.Value>
-            </Setter>
+             </Setter>
 
             <Setter Property ="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="ButtonBorder" CornerRadius="10"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Background="{TemplateBinding Background}"
-                        Height="{TemplateBinding Height}"
-                        Width="{TemplateBinding Width}" >
-                            <ContentControl Margin="{TemplateBinding Padding}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Content="{TemplateBinding Content}" />
+                        <Border x:Name="ButtonBorder" 
+                                CornerRadius="7"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                Height="{TemplateBinding Height}"
+                                Width="{TemplateBinding Width}" >
+                                <ContentControl Margin="{TemplateBinding Padding}"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Content="{TemplateBinding Content}" />
                         </Border>
 
                         <ControlTemplate.Triggers>
