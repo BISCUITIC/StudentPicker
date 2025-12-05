@@ -1,9 +1,10 @@
 ﻿using Application.Interfaces;
+using Application.Services.Interfaces;
 using Domain.Entities;
 
 namespace Application.Services;
 
-public class GroupService
+public class GroupService : IGroupService
 {
     private readonly IGroupRepository _groupRepository;
 

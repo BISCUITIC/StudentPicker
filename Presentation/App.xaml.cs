@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Services;
+using Application.Services.Interfaces;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -33,8 +34,8 @@ public partial class App : System.Windows.Application
                         services.AddScoped<IGroupRepository, GroupRepository>();
                         services.AddScoped<IStudentRepository, StudentRepository>();
 
-                        services.AddScoped<StudentService>();
-                        services.AddScoped<GroupService>();
+                        services.AddScoped<IStudentService, StudentService>();
+                        services.AddScoped<IGroupService, GroupService>();
 
                         services.AddScoped<StudentsViewModel>();
                         services.AddScoped<GroupsViewModel>();

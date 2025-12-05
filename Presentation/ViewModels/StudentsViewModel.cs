@@ -1,4 +1,4 @@
-﻿using Application.Services;
+﻿using Application.Services.Interfaces;
 using CommunityToolkit.Mvvm.Input;
 using Domain.Entities;
 using Presentation.Models;
@@ -11,8 +11,8 @@ namespace Presentation.ViewModels;
 
 public class StudentsViewModel
 {
-    private readonly StudentService _studentService;
-    private readonly GroupService _groupService;
+    private readonly IStudentService _studentService;
+    private readonly IGroupService _groupService;
     private readonly ObservableCollection<StudentModel> _students;
 
     private GroupModel? _currentGroup;
@@ -24,7 +24,7 @@ public class StudentsViewModel
     public ICommand UpdateStudentCommand { get; }
     public ICommand AddStudentCommand { get; }
 
-    public StudentsViewModel(StudentService studentProvider, GroupService groupService)
+    public StudentsViewModel(IStudentService studentProvider, IGroupService groupService)
     {
         _studentService = studentProvider;
         _groupService = groupService;

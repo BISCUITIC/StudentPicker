@@ -1,9 +1,10 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Application.Services.Interfaces;
 
 namespace Application.Services;
 
-public class StudentService
+public class StudentService : IStudentService
 {
     private readonly IStudentRepository _studentRepository;
 

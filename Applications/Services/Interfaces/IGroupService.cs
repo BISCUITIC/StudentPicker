@@ -1,0 +1,9 @@
+﻿using Domain.Entities;
+
+namespace Application.Services.Interfaces;
+
+public interface IGroupService
+{
+    IReadOnlyCollection<Group> GetAllGroups();
+    Group GetGroup(int groupId);
+}

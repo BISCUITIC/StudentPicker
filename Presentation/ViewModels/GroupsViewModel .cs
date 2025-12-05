@@ -1,4 +1,4 @@
-﻿using Application.Services;
+﻿using Application.Services.Interfaces;
 using Domain.Entities;
 using Presentation.Models;
 using System.Collections.ObjectModel;
@@ -7,12 +7,12 @@ namespace Presentation.ViewModels;
 
 public class GroupsViewModel
 {
-    private readonly GroupService _groupProvider;
+    private readonly IGroupService _groupProvider;
     private readonly ObservableCollection<GroupModel> _groups;    
 
     public ObservableCollection<GroupModel> Groups { get => _groups; }
 
-    public GroupsViewModel(GroupService groupProvider)
+    public GroupsViewModel(IGroupService groupProvider)
     {
         _groupProvider = groupProvider;
         _groups = new ObservableCollection<GroupModel>();
