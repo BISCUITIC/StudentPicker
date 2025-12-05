@@ -38,7 +38,7 @@ public partial class App : System.Windows.Application
 
                         services.AddScoped<StudentsViewModel>();
                         services.AddScoped<GroupsViewModel>();
-                        services.AddScoped<WindowContext>();
+                        services.AddScoped<MainViewModel>();
 
                         services.AddSingleton<MainWindow>();
                     }).Build();

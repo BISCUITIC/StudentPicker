@@ -5,28 +5,31 @@ namespace Presentation.Models;
 
 public class StudentModel : INotifyPropertyChanged
 {
-    private readonly Student _domain;
+    private readonly int _id;
+    private string _name = null!;
+    private string _secondName = null!;
 
-    public int Id { get => _domain.Id; }
+    public int Id
+    {
+        get => _id;
+        init { _id = value; }
+    }
     public string Name
     {
-        get => _domain.Name;
-        set { _domain.UpdateName(value); OnPropertyChanged(); }
+        get => _name;
+        set { _name = value; OnPropertyChanged(); }
     }
     public string SecondName
     {
-        get => _domain.SecondName;
-        set { _domain.UpdateSecondName(value); OnPropertyChanged(); }
+        get => _secondName;
+        set { _secondName = value; OnPropertyChanged(); }
     }
 
     public StudentModel(Student domain)
     {
-        _domain = domain;
-    }
-
-    public Student AsStudent()
-    {
-        return _domain;
+        Id = domain.Id;
+        Name = domain.Name;
+        SecondName = domain.SecondName;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

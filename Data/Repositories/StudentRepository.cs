@@ -12,17 +12,17 @@ public class StudentRepository : IStudentRepository
         _context = applicationContext;
     }
 
-    public List<Student> GetAllByGroupId(int groupId)
+    public IReadOnlyCollection<Student> GetAllByGroupId(int groupId)
     {
         return _context.Students
                        .Where(student => student.GroupId == groupId)
                        .ToList();
     }
 
-    public Student GetById(int studentId)
+    public Student? GetById(int studentId)
     {
         return _context.Students
-                       .First(student => student.Id == studentId);
+                       .FirstOrDefault(student => student.Id == studentId);
     }
 
     public void Add(Student student)

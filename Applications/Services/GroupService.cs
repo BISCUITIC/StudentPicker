@@ -16,4 +16,9 @@ public class GroupService
     {
         return _groupRepository.GetAll();
     }
+
+    public Group GetGroup(int groupId)
+    {
+        return _groupRepository.GetById(groupId);
+    }
 }

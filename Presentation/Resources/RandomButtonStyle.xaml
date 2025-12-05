@@ -3,7 +3,6 @@
     <Style TargetType="Button" x:Key="RandomButtonStyle">
 
         <Style.Setters>
-            <Setter Property="Content" Value="Random"/>
             <Setter Property="Margin" Value="40,7,40,7"/>
             <Setter Property="Background" Value="#FF636363" />
             <Setter Property="Foreground" Value="White"/>

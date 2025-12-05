@@ -20,8 +20,18 @@ public class StudentService
     {
         return _studentRepository.GetById(studentId);
     }
+
+    public void AddStudent(Student student)
+    {
+        _studentRepository.Add(student);        
+    }
+
     public void UpdateStudent(Student student)
     {
         _studentRepository.Update(student);
+    }
+    public void DeleteStudent(Student student)
+    {
+        _studentRepository.Remove(student);
     }
 }

@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
     <Style TargetType="TextBlock" x:Key="StudentTextBlockStyle">
         <Style.Setters>
             <Setter Property="Margin" Value="5"/>
@@ -24,6 +25,13 @@
                      Text="{Binding Path=Name}"/>
             <TextBox Style="{StaticResource ResourceKey=StudentTextBoxStyle}" 
                      Text="{Binding Path=SecondName}"/>
+
+            <Button Command="{Binding DataContext.StudentsViewModel.DeleteStudentCommand,
+                                      RelativeSource={RelativeSource AncestorType=Window}}" 
+                    CommandParameter="{Binding}"
+                    Content="Delete"/>
+           
+
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

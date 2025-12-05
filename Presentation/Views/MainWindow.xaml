@@ -3,13 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Presentation"
-        xmlns:localCommands="clr-namespace:Presentation.Commands"        
+        xmlns:local="clr-namespace:Presentation"           
         mc:Ignorable="d"
-        Style="{StaticResource ResourceKey = WindowStyle}">
-    <Window.CommandBindings>
-        <CommandBinding Command="localCommands:WindowCommands.LoadGroup" Executed="LoadGroup_Executed"/>
-    </Window.CommandBindings>
+        Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"></RowDefinition>
@@ -19,19 +15,23 @@
 
         <ItemsControl Grid.Row="0" x:Name="GroupList"
                       Background="#FF2E2E2E"
-                      ItemsSource="{Binding Groups}"
+                      ItemsSource="{Binding GroupsViewModel.Groups}"
                       ItemsPanel="{StaticResource GroupItemPanel}"
                       ItemTemplate="{StaticResource GroupItemTemplate}"/>
 
         <ItemsControl Grid.Row="1" x:Name="StudentList"
-                      ItemsSource="{Binding Students}"
+                      ItemsSource="{Binding StudentsViewModel.Students}"
                       ItemsPanel="{StaticResource StudentItemPanel}"
                       ItemTemplate="{StaticResource StudentItemTemplate}"/>
 
-
-
-
-        <Button Grid.Row="2" x:Name="RandomButton"                 
-                Style="{StaticResource RandomButtonStyle}"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button x:Name="RandomButton" 
+                    Content="Random"
+                    Style="{StaticResource RandomButtonStyle}"/>
+            <Button x:Name="AddButton" 
+                    Content="Add"
+                    Style="{StaticResource RandomButtonStyle}"
+                    Command="{Binding StudentsViewModel.AddStudentCommand}"/>
+        </StackPanel>
     </Grid>
 </Window>

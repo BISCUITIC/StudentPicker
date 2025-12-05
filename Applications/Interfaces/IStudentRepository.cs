@@ -4,8 +4,8 @@ namespace Application.Interfaces;
 
 public interface IStudentRepository
 {
-    List<Student> GetAllByGroupId(int groupId);
-    Student GetById(int id);
+    IReadOnlyCollection<Student> GetAllByGroupId(int groupId);
+    Student? GetById(int id);
     void Add(Student student);
     void Remove(Student student);
     void Update(Student student);
