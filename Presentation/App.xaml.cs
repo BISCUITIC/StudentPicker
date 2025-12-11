@@ -6,7 +6,10 @@ using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Presentation.Services;
+using Presentation.Services.Interfacesl;
 using Presentation.ViewModels;
+using Presentation.Views;
 using System.IO;
 using System.Windows;
 
@@ -18,6 +21,8 @@ namespace Presentation;
 public partial class App : System.Windows.Application
 {
     private readonly IHost _host;
+
+    public IHost AppHost => _host;
 
     public App()
     {
@@ -36,10 +41,13 @@ public partial class App : System.Windows.Application
 
                         services.AddScoped<IStudentService, StudentService>();
                         services.AddScoped<IGroupService, GroupService>();
-
+                        services.AddScoped<IAddStudentDialogService, AddStudentDialogService>();
+                        services.AddScoped<AddStudentDialogViewModel>();
                         services.AddScoped<StudentsViewModel>();
                         services.AddScoped<GroupsViewModel>();
                         services.AddScoped<MainViewModel>();
+
+                        services.AddScoped<AddStudentDialog>();
 
                         services.AddSingleton<MainWindow>();
                     }).Build();

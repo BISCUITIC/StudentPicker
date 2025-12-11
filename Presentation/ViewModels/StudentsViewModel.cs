@@ -2,6 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using Domain.Entities;
 using Presentation.Models;
+using Presentation.Services;
+using Presentation.Services.DTO;
+using Presentation.Services.Interfacesl;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -11,8 +14,9 @@ namespace Presentation.ViewModels;
 
 public class StudentsViewModel : INotifyPropertyChanged
 {
-    private readonly IStudentService _studentService;
-    private readonly IGroupService _groupService;
+    private readonly IStudentService _studentService;    
+    private readonly IAddStudentDialogService _studentAddDialogService;
+
     private readonly ObservableCollection<StudentModel> _students;
 
     private GroupModel? _currentGroup;
@@ -24,10 +28,12 @@ public class StudentsViewModel : INotifyPropertyChanged
     public ICommand UpdateStudentCommand { get; }
     public ICommand AddStudentCommand { get; }
 
-    public StudentsViewModel(IStudentService studentProvider, IGroupService groupService)
+    public StudentsViewModel(IStudentService studentProvider,                              
+                             IAddStudentDialogService studentAddDialogService)
     {
-        _studentService = studentProvider;
-        _groupService = groupService;
+        _studentService = studentProvider;        
+        _studentAddDialogService = studentAddDialogService;
+
         _students = new ObservableCollection<StudentModel>();
 
         LoadStudentsCommand = new RelayCommand<GroupModel>(LoadStudents);
@@ -72,11 +78,15 @@ public class StudentsViewModel : INotifyPropertyChanged
         if (_currentGroup == null)
             return;
 
-        Group groupDomain = _groupService.GetGroup(_currentGroup.Id);
-        Student student = new Student("", "", groupDomain);
+        AddStudentResult? result = _studentAddDialogService.ShowAddStudentDialog();
 
-        _studentService.AddStudent(student);
-        _students.Add(new StudentModel(student));
+        if (result is not null)
+        {            
+            Student student = new Student(result.Name, result.SecondName, _currentGroup.Id);
+
+            _studentService.AddStudent(student);
+            _students.Add(new StudentModel(student));
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

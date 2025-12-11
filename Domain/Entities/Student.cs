@@ -22,6 +22,15 @@ public class Student
         GroupId = studyGroup.Id;
     }
 
+    public Student(string name, string secondName, int studyGroupId)
+    {
+        Name = name;
+        SecondName = secondName;
+        FullName = Name + " " + SecondName;
+        
+        GroupId = studyGroupId;
+    }
+
     public void UpdateSecondName(string secondName)
     {        
         SecondName = secondName;
