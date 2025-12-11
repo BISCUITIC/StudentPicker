@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Presentation.Models;
 
@@ -29,6 +30,9 @@ public class GroupModel : INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
-    private void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string? name = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    public void OnPropertyChanged([CallerMemberName] string prop = "")
+    {
+        if (PropertyChanged != null)
+            PropertyChanged(this, new PropertyChangedEventArgs(prop));
+    }
 }

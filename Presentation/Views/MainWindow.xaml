@@ -8,8 +8,9 @@
         Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="1.2*"></RowDefinition>
+            <RowDefinition Height="12*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -24,14 +25,21 @@
                       ItemsPanel="{StaticResource StudentItemPanel}"
                       ItemTemplate="{StaticResource StudentItemTemplate}"/>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <DockPanel Grid.Row="2" >
+            <Button x:Name="AddButton" DockPanel.Dock="Right"
+                    Content="+"
+                    Style="{StaticResource AddButtonStyle}"
+                    Command="{Binding StudentsViewModel.AddStudentCommand}"/>
+            <TextBlock x:Name="Statebar" DockPanel.Dock="Left"
+                       Text="{Binding Path=StudentsViewModel.State,
+                                      Mode=OneWay,
+                                      UpdateSourceTrigger=PropertyChanged}" 
+                       Foreground="White"/>
+        </DockPanel>
+        <DockPanel Grid.Row="3">
             <Button x:Name="RandomButton" 
                     Content="Random"
                     Style="{StaticResource RandomButtonStyle}"/>
-            <Button x:Name="AddButton" 
-                    Content="Add"
-                    Style="{StaticResource RandomButtonStyle}"
-                    Command="{Binding StudentsViewModel.AddStudentCommand}"/>
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>

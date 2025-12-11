@@ -3,13 +3,13 @@ using CommunityToolkit.Mvvm.Input;
 using Domain.Entities;
 using Presentation.Models;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
 
-public class StudentsViewModel
+public class StudentsViewModel : INotifyPropertyChanged
 {
     private readonly IStudentService _studentService;
     private readonly IGroupService _groupService;
@@ -34,8 +34,6 @@ public class StudentsViewModel
         DeleteStudentCommand = new RelayCommand<StudentModel>(DeleteStudent);
         UpdateStudentCommand = new RelayCommand<StudentModel>(UpdateStudent);
         AddStudentCommand = new RelayCommand(AddStudent);
-
-        _students.CollectionChanged += Students_CollectionChanged;
     }
 
     public void LoadStudents(GroupModel? groupModel)
@@ -55,11 +53,9 @@ public class StudentsViewModel
     public void DeleteStudent(StudentModel? studentModel)
     {
         if (studentModel == null)
-            return;
+            return;        
 
-        Student studentDomain = _studentService.GetStudent(studentModel.Id);
-
-        _studentService.DeleteStudent(studentDomain);
+        _studentService.DeleteStudent(studentModel.Id);
         _students.Remove(studentModel);
     }
     public void UpdateStudent(StudentModel? studentModel)
@@ -68,8 +64,7 @@ public class StudentsViewModel
             return;
 
         Student studentDomain = _studentService.GetStudent(studentModel.Id);
-        StudentMapper.ToDomain(studentModel, studentDomain);
-
+        StudentMapper.TryParseModelToDomain(studentModel, studentDomain);
         _studentService.UpdateStudent(studentDomain);
     }
     public void AddStudent()
@@ -84,21 +79,10 @@ public class StudentsViewModel
         _students.Add(new StudentModel(student));
     }
 
-    private void Student_PropertyChanged(object? sender, PropertyChangedEventArgs eventArgs)
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public void OnPropertyChanged([CallerMemberName] string prop = "")
     {
-        if (eventArgs.PropertyName is null)
-            return;
-
-        UpdateStudentCommand.Execute(sender as StudentModel);
-    }
-    private void Students_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs eventArgs)
-    {
-        if (eventArgs.NewItems != null)
-            foreach (StudentModel student in eventArgs.NewItems)
-                student.PropertyChanged += Student_PropertyChanged;
-
-        if (eventArgs.OldItems != null)
-            foreach (StudentModel student in eventArgs.OldItems)
-                student.PropertyChanged -= Student_PropertyChanged;
+        if (PropertyChanged != null)
+            PropertyChanged(this, new PropertyChangedEventArgs(prop));
     }
 }

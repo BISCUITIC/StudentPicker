@@ -14,4 +14,9 @@ public partial class MainWindow : Window
 
         DataContext = windowContext;
     }
+
+    private void RandomButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

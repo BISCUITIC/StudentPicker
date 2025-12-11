@@ -1,14 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <Style TargetType="TextBlock" x:Key="StudentTextBlockStyle">
-        <Style.Setters>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="#FF636363" />
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="25"/>
-        </Style.Setters>
-    </Style>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <Style TargetType="TextBox" x:Key="StudentTextBoxStyle">
         <Style.Setters>
@@ -16,22 +8,40 @@
             <Setter Property="Background" Value="#FF636363" />
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="25"/>
+            <Setter Property="AcceptsReturn" Value="False"/>
         </Style.Setters>
     </Style>
 
     <DataTemplate x:Key="StudentItemTemplate">
         <StackPanel Orientation="Horizontal">
             <TextBox Style="{StaticResource ResourceKey=StudentTextBoxStyle}" 
-                     Text="{Binding Path=Name}"/>
+                     Text="{Binding Path=Name}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction
+                            Command="{Binding DataContext.StudentsViewModel.UpdateStudentCommand,
+                                              RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+
             <TextBox Style="{StaticResource ResourceKey=StudentTextBoxStyle}" 
-                     Text="{Binding Path=SecondName}"/>
+                     Text="{Binding Path=SecondName}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction
+                            Command="{Binding DataContext.StudentsViewModel.UpdateStudentCommand,
+                                              RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
 
             <Button Command="{Binding DataContext.StudentsViewModel.DeleteStudentCommand,
                                       RelativeSource={RelativeSource AncestorType=Window}}" 
                     CommandParameter="{Binding}"
                     Content="Delete"/>
-           
-
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
