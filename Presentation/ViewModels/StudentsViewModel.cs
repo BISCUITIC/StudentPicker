@@ -70,7 +70,7 @@ public class StudentsViewModel : INotifyPropertyChanged
             return;
 
         Student studentDomain = _studentService.GetStudent(studentModel.Id);
-        StudentMapper.TryParseModelToDomain(studentModel, studentDomain);
+        StudentMapper.UpdateDomainFromModel(studentModel, studentDomain);
         _studentService.UpdateStudent(studentDomain);
     }
     public void AddStudent()
@@ -82,7 +82,7 @@ public class StudentsViewModel : INotifyPropertyChanged
 
         if (result is not null)
         {            
-            Student student = new Student(result.Name, result.SecondName, _currentGroup.Id);
+            Student student = StudentMapper.ToDomain(_currentGroup.Id, result);
 
             _studentService.AddStudent(student);
             _students.Add(new StudentModel(student));

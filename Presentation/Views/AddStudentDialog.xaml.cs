@@ -8,11 +8,14 @@ namespace Presentation.Views;
 /// </summary>
 public partial class AddStudentDialog : Window
 {
+    public AddStudentDialogViewModel Context { get; private set; }
+
     public AddStudentDialog(AddStudentDialogViewModel dialogContext)
     {
         InitializeComponent();
 
-        DataContext = dialogContext;
-        dialogContext.ResultRequest += (result) => { DialogResult = result; };
+        Context = dialogContext;
+        Context.ResultRequest += (result) => { DialogResult = result; };
+        DataContext = Context;
     }
 }

@@ -42,12 +42,13 @@ public partial class App : System.Windows.Application
                         services.AddScoped<IStudentService, StudentService>();
                         services.AddScoped<IGroupService, GroupService>();
                         services.AddScoped<IAddStudentDialogService, AddStudentDialogService>();
-                        services.AddScoped<AddStudentDialogViewModel>();
+
+                        services.AddTransient<AddStudentDialogViewModel>();
                         services.AddScoped<StudentsViewModel>();
                         services.AddScoped<GroupsViewModel>();
                         services.AddScoped<MainViewModel>();
 
-                        services.AddScoped<AddStudentDialog>();
+                        services.AddTransient<AddStudentDialog>();
 
                         services.AddSingleton<MainWindow>();
                     }).Build();

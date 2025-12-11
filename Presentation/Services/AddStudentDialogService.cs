@@ -18,9 +18,9 @@ public class AddStudentDialogService : IAddStudentDialogService
     public AddStudentResult? ShowAddStudentDialog()
     {
         AddStudentDialog dialog = _serviceProvider.GetRequiredService<AddStudentDialog>();
-        AddStudentDialogViewModel? context = dialog.DataContext as AddStudentDialogViewModel;
+        AddStudentDialogViewModel context = dialog.Context;
 
-        if (dialog.ShowDialog() == true && context is not null)
+        if (IsDialogConfirmedAndValid(dialog, context))
         {
             return new AddStudentResult()
             {
@@ -32,5 +32,15 @@ public class AddStudentDialogService : IAddStudentDialogService
         {
             return null;
         }
+    }
+
+    private bool IsDialogConfirmedAndValid(AddStudentDialog dialog, AddStudentDialogViewModel context)
+    {
+        return dialog.ShowDialog() == true && DialogNotEmpty(context);
+    }
+
+    private bool DialogNotEmpty(AddStudentDialogViewModel context)
+    {
+        return !string.IsNullOrWhiteSpace(context.Name) && !string.IsNullOrWhiteSpace(context.SecondName);
     }
 }
