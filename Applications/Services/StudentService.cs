@@ -31,8 +31,8 @@ public class StudentService : IStudentService
     {
         _studentRepository.Update(student);
     }
-    public void DeleteStudent(Student student)
+    public void DeleteStudent(int studentId)
     {
-        _studentRepository.Remove(student);
+        _studentRepository.Remove(studentId);
     }
 }

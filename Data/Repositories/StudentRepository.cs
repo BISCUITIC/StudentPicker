@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
@@ -27,13 +28,15 @@ public class StudentRepository : IStudentRepository
 
     public void Add(Student student)
     {
-        _context.Add(student);
+        _context.Students.Add(student);
         _context.SaveChanges();
     }
 
-    public void Remove(Student student)
+    public void Remove(int studentId)
     {
-        _context.Remove(student);
+        _context.Students
+                .Where(student => student.Id == studentId)
+                .ExecuteDelete();
         _context.SaveChanges();
     }
 

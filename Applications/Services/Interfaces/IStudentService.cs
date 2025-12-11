@@ -8,5 +8,5 @@ public interface IStudentService
     Student GetStudent(int studentId);
     void AddStudent(Student student);
     void UpdateStudent(Student student);
-    void DeleteStudent(Student student);
+    void DeleteStudent(int studentId);
 }
