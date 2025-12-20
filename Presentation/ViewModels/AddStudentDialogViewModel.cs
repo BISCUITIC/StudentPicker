@@ -5,8 +5,8 @@ namespace Presentation.ViewModels;
 
 public class AddStudentDialogViewModel
 {
-    public string Name { get; set; }
-    public string SecondName { get; set; }
+    public string? Name { get; set; }
+    public string? SecondName { get; set; }
 
     public ICommand SaveCommand { get; }
     public ICommand CancelCommand { get; }
