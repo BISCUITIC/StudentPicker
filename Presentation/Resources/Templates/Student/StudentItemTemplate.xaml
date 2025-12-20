@@ -13,7 +13,9 @@
     </Style>
 
     <DataTemplate x:Key="StudentItemTemplate">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" 
+                    Background="Aqua" 
+                    Tag="{Binding ElementName=CoreWindow}">
             <TextBox Style="{StaticResource ResourceKey=StudentTextBoxStyle}" 
                      Text="{Binding Path=Name}">
                 <i:Interaction.Triggers>
@@ -42,6 +44,19 @@
                                       RelativeSource={RelativeSource AncestorType=Window}}" 
                     CommandParameter="{Binding}"
                     Content="Delete"/>
+
+            <StackPanel.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.DeleteStudentCommand,
+                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                              CommandParameter="{Binding}"
+                              Header="Delete"/>
+                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.DeleteStudentCommand,
+                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                              CommandParameter="{Binding}"
+                              Header="Edit"/>
+                </ContextMenu>
+            </StackPanel.ContextMenu>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
