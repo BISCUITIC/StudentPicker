@@ -2,42 +2,36 @@
 using Presentation.Services.DTO;
 using Presentation.ViewModels;
 using Presentation.Views;
-using System;
 
 namespace Presentation.Services;
 
 public abstract class StudentDialogService
 {
     private readonly IServiceProvider _serviceProvider;
-
-    private StudentDialog _studentDialog = null!;
-    private StudentDialogViewModel _studentDialogContext = null!;
-
+    
     public StudentDialogService(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
-        CreateDialog();
+        _serviceProvider = serviceProvider;        
     }
 
-    protected void CreateDialog()
-    {        
-        _studentDialog = _serviceProvider.GetRequiredService<StudentDialog>();
-        _studentDialogContext = _studentDialog.Context;
-    }
-
-    protected bool IsDialogConfirmedAndValid()
+    protected StudentDialog CreateDialog()
     {
-        return _studentDialog.ShowDialog() == true && DialogNotEmpty();
+        return _serviceProvider.GetRequiredService<StudentDialog>();        
     }
 
-    protected StudentDialogResult GetResult()
+    protected bool IsDialogConfirmedAndValid(StudentDialog dialog, StudentDialogViewModel context)
     {
-        return new StudentDialogResult() { Name = _studentDialogContext.Name, SecondName = _studentDialogContext.SecondName };
+        return dialog.ShowDialog() == true && DialogNotEmpty(context);
     }
 
-    private bool DialogNotEmpty()
+    protected StudentDialogResult GetResult(StudentDialogViewModel context)
     {
-        return !string.IsNullOrWhiteSpace(_studentDialogContext.Name) && 
-               !string.IsNullOrWhiteSpace(_studentDialogContext.SecondName);
+        return new StudentDialogResult() { Name = context.Name, SecondName = context.SecondName };
+    }
+
+    private bool DialogNotEmpty(StudentDialogViewModel context)
+    {
+        return !string.IsNullOrWhiteSpace(context.Name) &&
+               !string.IsNullOrWhiteSpace(context.SecondName);
     }
 }

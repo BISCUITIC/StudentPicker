@@ -41,8 +41,8 @@ public partial class App : System.Windows.Application
 
                         services.AddScoped<IStudentService, StudentService>();
                         services.AddScoped<IGroupService, GroupService>();
-                        services.AddScoped<IAddStudentDialogService, AddStudentDialogService>();
-                        services.AddScoped<IUpdateStudentDialogService, UpdateStudentDialogService>();
+                        services.AddTransient<IAddStudentDialogService, AddStudentDialogService>();
+                        services.AddTransient<IUpdateStudentDialogService, UpdateStudentDialogService>();
 
                         services.AddTransient<StudentDialogViewModel>();
                         services.AddScoped<StudentsViewModel>();

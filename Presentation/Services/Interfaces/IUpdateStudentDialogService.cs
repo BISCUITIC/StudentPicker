@@ -1,8 +1,9 @@
-﻿using Presentation.Services.DTO;
+﻿using Presentation.Models;
+using Presentation.Services.DTO;
 
 namespace Presentation.Services.Interfaces;
 
-internal interface IUpdateStudentDialogService
+public interface IUpdateStudentDialogService
 {
-    StudentDialogResult? ShowUpdateStudentDialog();
+    StudentDialogResult? ShowUpdateStudentDialog(StudentModel studentModel);
 }

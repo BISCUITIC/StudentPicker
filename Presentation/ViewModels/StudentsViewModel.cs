@@ -31,10 +31,12 @@ public class StudentsViewModel : INotifyPropertyChanged
     public ICommand AddStudentCommand { get; }
 
     public StudentsViewModel(IStudentService studentProvider,                              
-                             IAddStudentDialogService studentAddDialogService)
+                             IAddStudentDialogService studentAddDialogService,
+                             IUpdateStudentDialogService updateStudentDialogService)
     {
         _studentService = studentProvider;        
         _studentAddDialogService = studentAddDialogService;
+        _updateStudentDialogService = updateStudentDialogService;
 
         _students = new ObservableCollection<StudentModel>();
 
@@ -68,16 +70,16 @@ public class StudentsViewModel : INotifyPropertyChanged
     }
     public void UpdateStudent(StudentModel? studentModel)
     {        
-        if (studentModel == null)
+        if (studentModel == null || _currentGroup == null)
             return;
 
-        StudentDialogResult? result = _studentAddDialogService.ShowAddStudentDialog();
+        StudentDialogResult? result = _updateStudentDialogService.ShowUpdateStudentDialog(studentModel);
 
         if (result is not null)
         {
-            Student studentDomain = _studentService.GetStudent(studentModel.Id);
-            StudentMapper.UpdateDomainFromModel(studentModel, studentDomain);
-            _studentService.UpdateStudent(studentDomain);            
+            Student student = StudentMapper.ToDomain(_currentGroup.Id, result);
+            StudentMapper.UpdateModelFromDialogResult(result, studentModel);
+            _studentService.UpdateStudent(student);         
         }
     }
     public void AddStudent()

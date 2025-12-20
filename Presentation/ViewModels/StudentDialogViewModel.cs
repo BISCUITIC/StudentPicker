@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
 
-public class StudentDialogViewModel
+public class StudentDialogViewModel : INotifyPropertyChanged
 {
     public string? Name { get; set; }
     public string? SecondName { get; set; }
@@ -27,5 +29,12 @@ public class StudentDialogViewModel
     public void Cancel()
     {
         ResultRequest?.Invoke(false);
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public void OnPropertyChanged([CallerMemberName] string prop = "")
+    {
+        if (PropertyChanged != null)
+            PropertyChanged(this, new PropertyChangedEventArgs(prop));
     }
 }

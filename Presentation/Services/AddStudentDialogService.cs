@@ -1,5 +1,7 @@
 ﻿using Presentation.Services.DTO;
 using Presentation.Services.Interfaces;
+using Presentation.ViewModels;
+using Presentation.Views;
 
 namespace Presentation.Services;
 
@@ -9,10 +11,13 @@ public class AddStudentDialogService : StudentDialogService, IAddStudentDialogSe
 
     public StudentDialogResult? ShowAddStudentDialog()
     {
-        CreateDialog();
-        if (IsDialogConfirmedAndValid())
+        StudentDialog dialog = CreateDialog();
+        StudentDialogViewModel context = dialog.Context;
+        dialog.Title = "Add student";
+
+        if (IsDialogConfirmedAndValid(dialog, context))
         {
-            return GetResult();
+            return GetResult(context);
         }
         else
         {
