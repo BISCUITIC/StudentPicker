@@ -3,13 +3,13 @@ using Presentation.Services.Interfaces;
 
 namespace Presentation.Services;
 
-public class AddStudentDialogService : StudentDialogService, IAddStudentDialogService
+public class UpdateStudentDialogService : StudentDialogService, IUpdateStudentDialogService
 {
-    public AddStudentDialogService(IServiceProvider serviceProvider) : base(serviceProvider) { }
+    public UpdateStudentDialogService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
-    public StudentDialogResult? ShowAddStudentDialog()
+    public StudentDialogResult? ShowUpdateStudentDialog()
     {
-        CreateDialog();
+        //CreateDialog();
         if (IsDialogConfirmedAndValid())
         {
             return GetResult();

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Presentation.Services;
-using Presentation.Services.Interfacesl;
+using Presentation.Services.Interfaces;
 using Presentation.ViewModels;
 using Presentation.Views;
 using System.IO;
@@ -42,13 +42,14 @@ public partial class App : System.Windows.Application
                         services.AddScoped<IStudentService, StudentService>();
                         services.AddScoped<IGroupService, GroupService>();
                         services.AddScoped<IAddStudentDialogService, AddStudentDialogService>();
+                        services.AddScoped<IUpdateStudentDialogService, UpdateStudentDialogService>();
 
-                        services.AddTransient<AddStudentDialogViewModel>();
+                        services.AddTransient<StudentDialogViewModel>();
                         services.AddScoped<StudentsViewModel>();
                         services.AddScoped<GroupsViewModel>();
                         services.AddScoped<MainViewModel>();
 
-                        services.AddTransient<AddStudentDialog>();
+                        services.AddTransient<StudentDialog>();
 
                         services.AddSingleton<MainWindow>();
                     }).Build();
@@ -60,8 +61,9 @@ public partial class App : System.Windows.Application
         window.Show();  
         base.OnStartup(e);
     }
-    protected override void OnExit(ExitEventArgs e)
+    protected override async void OnExit(ExitEventArgs e)
     {
+        await _host.StopAsync();
         _host.Dispose();        
         base.OnExit(e);
     }

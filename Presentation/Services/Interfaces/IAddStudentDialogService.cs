@@ -1,8 +1,8 @@
 ﻿using Presentation.Services.DTO;
 
-namespace Presentation.Services.Interfacesl;
+namespace Presentation.Services.Interfaces;
 
 public interface IAddStudentDialogService
 {
-    AddStudentResult? ShowAddStudentDialog();
+    StudentDialogResult? ShowAddStudentDialog();
 }

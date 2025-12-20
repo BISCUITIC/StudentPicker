@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Presentation.ViewModels;
 
-public class AddStudentDialogViewModel
+public class StudentDialogViewModel
 {
     public string? Name { get; set; }
     public string? SecondName { get; set; }
@@ -13,13 +13,13 @@ public class AddStudentDialogViewModel
 
     public event Action<bool>? ResultRequest;
 
-    public AddStudentDialogViewModel()
+    public StudentDialogViewModel()
     {
-        SaveCommand = new RelayCommand(Add);
+        SaveCommand = new RelayCommand(Save);
         CancelCommand = new RelayCommand(Cancel);
     }
 
-    public void Add()
+    public void Save()
     {
         ResultRequest?.Invoke(true);
     }

@@ -11,7 +11,7 @@ public static class StudentMapper
         domain.UpdateSecondName(model.SecondName);
     }
 
-    public static Student ToDomain(int groupId, AddStudentResult result)
+    public static Student ToDomain(int groupId, StudentDialogResult result)
     {
         return new Student(result.Name, result.SecondName, groupId);
     }

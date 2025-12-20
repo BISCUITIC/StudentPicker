@@ -1,0 +1,29 @@
+﻿<Window x:Class="Presentation.Views.StudentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+        Title="Add Student"       
+        Style="{StaticResource DialogWindowStyle}">
+
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" 
+                    Orientation="Vertical">
+            <TextBox x:Name="FirstNameTextBox"
+                     Style="{StaticResource DefualtTextBoxStyle}"
+                     Text="{Binding Name}"/>
+            <TextBox x:Name="LastNameTextBox"
+                     Style="{StaticResource DefualtTextBoxStyle}"
+                     Text="{Binding SecondName}"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+            <Button Content="Save"
+                    Style="{StaticResource DialogButtonStyle}"
+                    Command="{Binding SaveCommand}"/>
+            <Button Content="Cancel" 
+                    Style="{StaticResource DialogButtonStyle}"
+                    Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </DockPanel>
+    
+</Window>

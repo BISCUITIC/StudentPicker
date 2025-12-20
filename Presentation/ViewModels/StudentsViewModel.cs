@@ -4,10 +4,11 @@ using Domain.Entities;
 using Presentation.Models;
 using Presentation.Services;
 using Presentation.Services.DTO;
-using Presentation.Services.Interfacesl;
+using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
@@ -15,7 +16,8 @@ namespace Presentation.ViewModels;
 public class StudentsViewModel : INotifyPropertyChanged
 {
     private readonly IStudentService _studentService;    
-    private readonly IAddStudentDialogService _studentAddDialogService;
+    private readonly IAddStudentDialogService _studentAddDialogService;    
+    private readonly IUpdateStudentDialogService _updateStudentDialogService;
 
     private readonly ObservableCollection<StudentModel> _students;
 
@@ -65,20 +67,25 @@ public class StudentsViewModel : INotifyPropertyChanged
         _students.Remove(studentModel);
     }
     public void UpdateStudent(StudentModel? studentModel)
-    {
+    {        
         if (studentModel == null)
             return;
 
-        Student studentDomain = _studentService.GetStudent(studentModel.Id);
-        StudentMapper.UpdateDomainFromModel(studentModel, studentDomain);
-        _studentService.UpdateStudent(studentDomain);
+        StudentDialogResult? result = _studentAddDialogService.ShowAddStudentDialog();
+
+        if (result is not null)
+        {
+            Student studentDomain = _studentService.GetStudent(studentModel.Id);
+            StudentMapper.UpdateDomainFromModel(studentModel, studentDomain);
+            _studentService.UpdateStudent(studentDomain);            
+        }
     }
     public void AddStudent()
     {
         if (_currentGroup == null)
             return;
 
-        AddStudentResult? result = _studentAddDialogService.ShowAddStudentDialog();
+        StudentDialogResult? result = _studentAddDialogService.ShowAddStudentDialog();
 
         if (result is not null)
         {            

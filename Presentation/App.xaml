@@ -1,7 +1,8 @@
 ﻿<Application x:Class="Presentation.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Presentation">
+             xmlns:local="clr-namespace:Presentation"
+             ShutdownMode="OnMainWindowClose">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -13,6 +14,8 @@
                 <ResourceDictionary Source="/Resources/Styles/Buttons/RandomButtonStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Buttons/AddButtonStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/Buttons/DialogButtonStyle.xaml"/>
+
+                <ResourceDictionary Source="/Resources/Styles/TextBoxes/DefualtTextBoxStyle.xaml"/>
 
                 <ResourceDictionary Source="/Resources/Templates/Group/GroupItemsPanelTemplate.xaml"/>
                 <ResourceDictionary Source="/Resources/Templates/Group/GroupItemTemplate.xaml"/>

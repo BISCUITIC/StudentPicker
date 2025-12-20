@@ -51,7 +51,7 @@
                                                 RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
                               CommandParameter="{Binding}"
                               Header="Delete"/>
-                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.DeleteStudentCommand,
+                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.UpdateStudentCommand,
                                                 RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
                               CommandParameter="{Binding}"
                               Header="Edit"/>

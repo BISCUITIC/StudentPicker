@@ -6,11 +6,11 @@ namespace Presentation.Views;
 /// <summary>
 /// Логика взаимодействия для AddStudentDialog.xaml
 /// </summary>
-public partial class AddStudentDialog : Window
+public partial class StudentDialog : Window
 {
-    public AddStudentDialogViewModel Context { get; private set; }
+    public StudentDialogViewModel Context { get; private set; }
 
-    public AddStudentDialog(AddStudentDialogViewModel dialogContext)
+    public StudentDialog(StudentDialogViewModel dialogContext)
     {
         InitializeComponent();
 
