@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Presentation.Interfaces;
 using Presentation.Models;
-using Presentation.Views;
 using System.Windows;
 
 namespace Presentation.Services.Factories;
@@ -14,19 +14,19 @@ public abstract class StudentDialogFactory
         _serviceProvider = serviceProvider;
     }
 
-    public StudentDialog CreateDialog(StudentModel? model = null)
+    public IStudentDialog CreateDialog(StudentModel? model = null)
     {
-        StudentDialog dialog = _serviceProvider.GetRequiredService<StudentDialog>();
+        IStudentDialog dialog = _serviceProvider.GetRequiredService<IStudentDialog>();
 
         CentrolizedDialog(dialog);
         ConfigureDialog(dialog, model);
         return dialog;
     }
 
-    private void CentrolizedDialog(StudentDialog dialog)
+    private void CentrolizedDialog(IStudentDialog dialog)
     {
         dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         dialog.Owner = System.Windows.Application.Current.MainWindow;
     }
-    protected abstract void ConfigureDialog(StudentDialog dialog, StudentModel? model);
+    protected abstract void ConfigureDialog(IStudentDialog dialog, StudentModel? model);
 }

@@ -1,4 +1,5 @@
-﻿using Presentation.ViewModels;
+﻿using Presentation.Interfaces;
+using Presentation.ViewModels;
 using System.Windows;
 
 namespace Presentation.Views;
@@ -6,7 +7,7 @@ namespace Presentation.Views;
 /// <summary>
 /// Логика взаимодействия для AddStudentDialog.xaml
 /// </summary>
-public partial class StudentDialog : Window
+public partial class StudentDialog : Window, IStudentDialog
 {
     public StudentDialogViewModel Context { get; private set; }
 

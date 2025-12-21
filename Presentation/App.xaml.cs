@@ -6,6 +6,7 @@ using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Presentation.Interfaces;
 using Presentation.Services.Dialogs;
 using Presentation.Services.Factories;
 using Presentation.Services.Interfaces;
@@ -54,7 +55,7 @@ public partial class App : System.Windows.Application
                         services.AddScoped<GroupsViewModel>();
                         services.AddScoped<MainViewModel>();
 
-                        services.AddTransient<StudentDialog>();
+                        services.AddTransient<IStudentDialog, StudentDialog>();
 
                         services.AddSingleton<MainWindow>();
                     }).Build();
