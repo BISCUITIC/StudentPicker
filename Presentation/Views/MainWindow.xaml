@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Presentation"           
         mc:Ignorable="d"  
         x:Name="CoreWindow"
+        WindowStartupLocation="CenterScreen"       
         Style="{StaticResource WindowStyle}">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,17 +17,17 @@
         </Grid.RowDefinitions>
 
         <ItemsControl Grid.Row="0" x:Name="GroupList"
-                      Background="#FF2E2E2E"
+                      Background="#FF1F1F1F"
                       ItemsSource="{Binding GroupsViewModel.Groups}"
                       ItemsPanel="{StaticResource GroupItemPanel}"
                       ItemTemplate="{StaticResource GroupItemTemplate}"/>
-
-        <ItemsControl Grid.Row="1" x:Name="StudentList"
-                      ItemsSource="{Binding StudentsViewModel.Students}"
-                      ItemsPanel="{StaticResource StudentItemPanel}"
-                      ItemTemplate="{StaticResource StudentItemTemplate}"/>
-
-        <DockPanel Grid.Row="2" >
+        <ScrollViewer Grid.Row="1" >
+            <ItemsControl x:Name="StudentList"
+                          ItemsSource="{Binding StudentsViewModel.Students}"
+                          ItemsPanel="{StaticResource StudentItemPanel}"
+                          ItemTemplate="{StaticResource StudentItemTemplate}"/>
+        </ScrollViewer>
+        <DockPanel Grid.Row="2">
             <Button x:Name="AddButton" DockPanel.Dock="Right"
                     Content="+"
                     Style="{StaticResource AddButtonStyle}"

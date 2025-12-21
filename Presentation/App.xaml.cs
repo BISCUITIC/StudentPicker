@@ -6,7 +6,8 @@ using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Presentation.Services;
+using Presentation.Services.Dialogs;
+using Presentation.Services.Factories;
 using Presentation.Services.Interfaces;
 using Presentation.ViewModels;
 using Presentation.Views;
@@ -41,6 +42,10 @@ public partial class App : System.Windows.Application
 
                         services.AddScoped<IStudentService, StudentService>();
                         services.AddScoped<IGroupService, GroupService>();
+
+                        services.AddTransient<AddStudentDialogFactory>();
+                        services.AddTransient<UpdateStudentDialogFactory>();
+
                         services.AddTransient<IAddStudentDialogService, AddStudentDialogService>();
                         services.AddTransient<IUpdateStudentDialogService, UpdateStudentDialogService>();
 

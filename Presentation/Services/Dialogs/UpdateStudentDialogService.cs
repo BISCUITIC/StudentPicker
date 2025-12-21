@@ -1,23 +1,25 @@
 ﻿using Presentation.Models;
 using Presentation.Services.DTO;
+using Presentation.Services.Factories;
 using Presentation.Services.Interfaces;
 using Presentation.ViewModels;
 using Presentation.Views;
 
-namespace Presentation.Services;
+namespace Presentation.Services.Dialogs;
 
 public class UpdateStudentDialogService : StudentDialogService, IUpdateStudentDialogService
 {
-    public UpdateStudentDialogService(IServiceProvider serviceProvider) : base(serviceProvider) { }
+    private readonly UpdateStudentDialogFactory _dialogFactory;
+
+    public UpdateStudentDialogService(UpdateStudentDialogFactory dialogFactory)
+    {
+        _dialogFactory = dialogFactory;
+    }
 
     public StudentDialogResult? ShowUpdateStudentDialog(StudentModel studentModel)
     {
-        StudentDialog dialog = CreateDialog();
+        StudentDialog dialog = _dialogFactory.CreateDialog(studentModel);
         StudentDialogViewModel context = dialog.Context;
-
-        dialog.Title = "Update student";
-        context.Name = studentModel.Name;
-        context.SecondName = studentModel.SecondName;
 
         if (IsDialogConfirmedAndValid(dialog, context))
         {

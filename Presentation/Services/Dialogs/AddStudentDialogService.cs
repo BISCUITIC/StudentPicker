@@ -1,19 +1,24 @@
 ﻿using Presentation.Services.DTO;
+using Presentation.Services.Factories;
 using Presentation.Services.Interfaces;
 using Presentation.ViewModels;
 using Presentation.Views;
 
-namespace Presentation.Services;
+namespace Presentation.Services.Dialogs;
 
 public class AddStudentDialogService : StudentDialogService, IAddStudentDialogService
 {
-    public AddStudentDialogService(IServiceProvider serviceProvider) : base(serviceProvider) { }
+    private readonly AddStudentDialogFactory _dialogFactory;
+
+    public AddStudentDialogService(AddStudentDialogFactory dialogFactory)
+    {
+        _dialogFactory = dialogFactory;
+    }
 
     public StudentDialogResult? ShowAddStudentDialog()
     {
-        StudentDialog dialog = CreateDialog();
+        StudentDialog dialog = _dialogFactory.CreateDialog();
         StudentDialogViewModel context = dialog.Context;
-        dialog.Title = "Add student";
 
         if (IsDialogConfirmedAndValid(dialog, context))
         {
