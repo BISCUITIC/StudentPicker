@@ -1,10 +1,8 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
-using Infrastructure.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
-
-
 
 public class GroupRepository : IGroupRepository
 {
@@ -20,15 +18,28 @@ public class GroupRepository : IGroupRepository
         return _context.Groups.ToList();
     }
 
-    public Group GetById(int groupId)
+    public Group? GetById(int groupId)
     {
         return _context.Groups
-                       .FirstOrDefault(group => group.Id == groupId)
-                       ?? throw new GroupNotFoundException($"No group with such id {groupId}");
+                       .FirstOrDefault(group => group.Id == groupId);
+    }
+    public void Add(Group group)
+    {
+        _context.Groups.Add(group);
+        _context.SaveChanges();
     }
 
-    public void Update(Group newGroup)
+    public void Remove(int groupId)
     {
-        _context.Groups.Update(newGroup);
+        _context.Groups
+                .Where(group => group.Id == groupId)
+                .ExecuteDelete();
+        _context.SaveChanges();
+    }
+
+    public void Update(Group group)
+    {
+        _context.Groups.Update(group);
+        _context.SaveChanges();
     }
 }

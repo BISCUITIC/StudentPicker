@@ -18,8 +18,22 @@ public class GroupService : IGroupService
         return _groupRepository.GetAll();
     }
 
-    public Group GetGroup(int groupId)
+    public Group? GetGroup(int groupId)
     {
         return _groupRepository.GetById(groupId);
+    }
+
+    public void AddGroup(Group group)
+    {
+        _groupRepository.Add(group);
+    }
+
+    public void UpdateStudent(Group group)
+    {
+        _groupRepository.Update(group);
+    }
+    public void DeleteStudent(int groupId)
+    {
+        _groupRepository.Remove(groupId);
     }
 }
