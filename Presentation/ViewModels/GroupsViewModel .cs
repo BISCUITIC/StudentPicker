@@ -1,31 +1,88 @@
 ﻿using Application.Services.Interfaces;
+using CommunityToolkit.Mvvm.Input;
 using Domain.Entities;
 using Presentation.Models;
+using Presentation.Services.DTO;
+using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Presentation.ViewModels;
 
 public class GroupsViewModel
 {
-    private readonly IGroupService _groupProvider;
-    private readonly ObservableCollection<GroupModel> _groups;    
+    private readonly IGroupService _groupService;
+    private readonly IAddGroupDialogService _addDialogService;
+    private readonly IUpdateGroupDialogService _updateDialogService;
+
+    private readonly ObservableCollection<GroupModel> _groups;
 
     public ObservableCollection<GroupModel> Groups { get => _groups; }
 
-    public GroupsViewModel(IGroupService groupProvider)
+    public ICommand LoadGroupCommand { get; }
+    public ICommand DeleteGroupCommand { get; }
+    public ICommand UpdateGroupCommand { get; }
+    public ICommand AddGroupCommand { get; }
+
+    public GroupsViewModel(IGroupService groupProvider,
+                           IAddGroupDialogService addGroupDialogService,
+                           IUpdateGroupDialogService updateGroupDialogService)
     {
-        _groupProvider = groupProvider;
+        _groupService = groupProvider;
+        _addDialogService = addGroupDialogService;
+        _updateDialogService = updateGroupDialogService;
+
         _groups = new ObservableCollection<GroupModel>();
 
-        LoadGroups();
+        LoadGroupCommand = new RelayCommand(LoadGroups);
+        DeleteGroupCommand = new RelayCommand<GroupModel>(DeleteGroup);
+        //UpdateGroupCommand = new RelayCommand<StudentModel>(UpdateStudent);
+        AddGroupCommand = new RelayCommand(AddGroup);
     }
 
     private void LoadGroups()
     {
-        IReadOnlyCollection<Group> groups = _groupProvider.GetAllGroups();
+        IReadOnlyCollection<Group> groups = _groupService.GetAllGroups();
         foreach (var group in groups)
         {
             _groups.Add(new GroupModel(group));
         }
     }
+
+    private void DeleteGroup(GroupModel? groupModel)
+    {
+        if (groupModel == null)
+            return;
+
+        _groupService.DeleteGroup(groupModel.Id);
+        _groups.Remove(groupModel);
+    }
+    //private void UpdateStudent(StudentModel? studentModel)
+    //{
+    //    if (studentModel == null || _currentGroup == null)
+    //        return;
+
+    //    StudentDialogResult? result = _updateStudentDialogService.ShowUpdateStudentDialog(studentModel);
+
+    //    if (result is not null)
+    //    {
+    //        Student student = StudentMapper.ToDomain(_currentGroup.Id, result);
+    //        StudentMapper.UpdateModelFromDialogResult(result, studentModel);
+    //        _studentService.UpdateStudent(student);
+    //    }
+    //}
+    private void AddGroup()
+    {
+        GroupDialogResult? result = _addDialogService.ShowAddGroupDialog();
+
+        if (result is not null)
+        {
+            Group group = StudentMapper.ToDomain(result);
+
+            _groupService.AddGroup(group);
+            _groups.Add(new GroupModel(group));
+        }
+    }
+
 }

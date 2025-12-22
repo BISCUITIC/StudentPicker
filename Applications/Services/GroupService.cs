@@ -28,11 +28,11 @@ public class GroupService : IGroupService
         _groupRepository.Add(group);
     }
 
-    public void UpdateStudent(Group group)
+    public void UpdateGroup(Group group)
     {
         _groupRepository.Update(group);
     }
-    public void DeleteStudent(int groupId)
+    public void DeleteGroup(int groupId)
     {
         _groupRepository.Remove(groupId);
     }

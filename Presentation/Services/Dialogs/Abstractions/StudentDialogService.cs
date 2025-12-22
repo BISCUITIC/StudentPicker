@@ -1,17 +1,17 @@
 ﻿using Presentation.Interfaces;
 using Presentation.Services.DTO;
-using Presentation.ViewModels;
+using Presentation.ViewModels.Dialogs;
 
-namespace Presentation.Services.Dialogs;
+namespace Presentation.Services.Dialogs.Abstractions;
 
-public abstract class StudentDialogService
+public abstract class StudentDialogService : DialogService<StudentDialogResult, StudentDialogViewModel, IStudentDialog>
 {
-    protected StudentDialogResult GetResult(StudentDialogViewModel context)
+    protected override StudentDialogResult GetResult(StudentDialogViewModel context)
     {
         return new StudentDialogResult() { Name = context.Name, SecondName = context.SecondName };
     }
 
-    protected bool IsDialogConfirmedAndValid(IStudentDialog dialog, StudentDialogViewModel context)
+    protected override bool IsDialogConfirmedAndValid(IStudentDialog dialog, StudentDialogViewModel context)
     {
         return dialog.ShowDialog() == true && DialogNotEmpty(context);
     }

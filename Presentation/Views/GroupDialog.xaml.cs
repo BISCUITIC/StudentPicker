@@ -5,13 +5,13 @@ using System.Windows;
 namespace Presentation.Views;
 
 /// <summary>
-/// Логика взаимодействия для AddStudentDialog.xaml
+/// Логика взаимодействия для GroupDialog.xaml
 /// </summary>
-public partial class StudentDialog : Window, IStudentDialog
+public partial class GroupDialog : Window, IGroupDialog
 {
-    public StudentDialogViewModel Context { get; private set; }
+    public GroupDialogViewModel Context { get; private set; }
 
-    public StudentDialog(StudentDialogViewModel dialogContext)
+    public GroupDialog(GroupDialogViewModel dialogContext)
     {
         InitializeComponent();
 
@@ -19,4 +19,5 @@ public partial class StudentDialog : Window, IStudentDialog
         Context.ResultRequest += (result) => { DialogResult = result; };
         DataContext = Context;
     }
+
 }

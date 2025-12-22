@@ -8,9 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Presentation.Interfaces;
 using Presentation.Services.Dialogs;
+using Presentation.Services.Dialogs.Factories;
 using Presentation.Services.Factories;
 using Presentation.Services.Interfaces;
 using Presentation.ViewModels;
+using Presentation.ViewModels.Dialogs;
 using Presentation.Views;
 using System.IO;
 using System.Windows;
@@ -46,31 +48,38 @@ public partial class App : System.Windows.Application
 
                         services.AddTransient<AddStudentDialogFactory>();
                         services.AddTransient<UpdateStudentDialogFactory>();
+                        services.AddTransient<AddGroupDialogFactory>();
+                        services.AddTransient<UpdateGroupDialogFactory>();
 
                         services.AddTransient<IAddStudentDialogService, AddStudentDialogService>();
                         services.AddTransient<IUpdateStudentDialogService, UpdateStudentDialogService>();
+                        services.AddTransient<IAddGroupDialogService, AddGroupDialogService>();
+                        services.AddTransient<IUpdateGroupDialogService, UpdateGroupDialogService>();
 
                         services.AddTransient<StudentDialogViewModel>();
+                        services.AddTransient<GroupDialogViewModel>();
+
                         services.AddScoped<StudentsViewModel>();
                         services.AddScoped<GroupsViewModel>();
                         services.AddScoped<MainViewModel>();
 
                         services.AddTransient<IStudentDialog, StudentDialog>();
+                        services.AddTransient<IGroupDialog, GroupDialog>();
 
                         services.AddSingleton<MainWindow>();
                     }).Build();
     }
 
     protected override void OnStartup(StartupEventArgs e)
-    {        
+    {
         MainWindow window = _host.Services.GetRequiredService<MainWindow>();
-        window.Show();  
+        window.Show();
         base.OnStartup(e);
     }
     protected override async void OnExit(ExitEventArgs e)
     {
         await _host.StopAsync();
-        _host.Dispose();        
+        _host.Dispose();
         base.OnExit(e);
     }
 }

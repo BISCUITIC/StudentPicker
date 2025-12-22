@@ -9,13 +9,29 @@
         <Button Style="{StaticResource ResourceKey=GroupButtonStyle}"
                 Command="{Binding DataContext.StudentsViewModel.LoadStudentsCommand,
                                   RelativeSource={RelativeSource AncestorType=Window}}"
-                CommandParameter="{Binding}">
+                CommandParameter="{Binding}"
+                Tag="{Binding ElementName=CoreWindow}">
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Path=Number}"/>
                 <TextBlock Text="{Binding Path=Letter}"/>
             </StackPanel>
+
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.GroupsViewModel.DeleteGroupCommand,
+                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                              CommandParameter="{Binding}"
+                              Header="Delete"/>
+                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.GroupsViewModel.UpdateGroupCommand,
+                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                              CommandParameter="{Binding}"
+                              Header="Edit"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+
         </Button>
+                        
     </DataTemplate>
     
 </ResourceDictionary>

@@ -6,7 +6,7 @@ public interface IStudentRepository
 {
     IReadOnlyCollection<Student> GetAllByGroupId(int groupId);
     Student? GetById(int id);
-    void Add(Group student);
+    void Add(Student student);
     void Remove(int id);
-    void Update(Group student);
+    void Update(Student student);
 }

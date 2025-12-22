@@ -1,8 +1,9 @@
 ﻿using Presentation.Interfaces;
+using Presentation.Services.Dialogs.Abstractions;
 using Presentation.Services.DTO;
 using Presentation.Services.Factories;
 using Presentation.Services.Interfaces;
-using Presentation.ViewModels;
+using Presentation.ViewModels.Dialogs;
 
 namespace Presentation.Services.Dialogs;
 
@@ -18,15 +19,6 @@ public class AddStudentDialogService : StudentDialogService, IAddStudentDialogSe
     public StudentDialogResult? ShowAddStudentDialog()
     {
         IStudentDialog dialog = _dialogFactory.CreateDialog();
-        StudentDialogViewModel context = dialog.Context;
-
-        if (IsDialogConfirmedAndValid(dialog, context))
-        {
-            return GetResult(context);
-        }
-        else
-        {
-            return null;
-        }
+        return ShowInternal(dialog, dialog.Context);
     }
 }

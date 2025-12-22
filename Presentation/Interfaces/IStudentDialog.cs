@@ -1,13 +1,8 @@
-﻿using Presentation.ViewModels;
-using System.Windows;
+﻿using Presentation.ViewModels.Dialogs;
 
 namespace Presentation.Interfaces;
 
-public interface IStudentDialog
+public interface IStudentDialog : IDialog
 {
-    string Title { get; set; }
     StudentDialogViewModel Context { get; }
-    Window Owner {  get; set; }
-    WindowStartupLocation WindowStartupLocation { get; set; }
-    bool? ShowDialog();
 }

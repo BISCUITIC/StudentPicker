@@ -2,22 +2,20 @@
 using CommunityToolkit.Mvvm.Input;
 using Domain.Entities;
 using Presentation.Models;
-using Presentation.Services;
 using Presentation.Services.DTO;
 using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
 
 public class StudentsViewModel : INotifyPropertyChanged
 {
-    private readonly IStudentService _studentService;    
-    private readonly IAddStudentDialogService _studentAddDialogService;    
-    private readonly IUpdateStudentDialogService _updateStudentDialogService;
+    private readonly IStudentService _studentService;
+    private readonly IAddStudentDialogService _addDialogService;
+    private readonly IUpdateStudentDialogService _updateDialogService;
 
     private readonly ObservableCollection<StudentModel> _students;
 
@@ -30,13 +28,13 @@ public class StudentsViewModel : INotifyPropertyChanged
     public ICommand UpdateStudentCommand { get; }
     public ICommand AddStudentCommand { get; }
 
-    public StudentsViewModel(IStudentService studentProvider,                              
-                             IAddStudentDialogService studentAddDialogService,
-                             IUpdateStudentDialogService updateStudentDialogService)
+    public StudentsViewModel(IStudentService studentProvider,
+                             IAddStudentDialogService addDialogService,
+                             IUpdateStudentDialogService studentDialogService)
     {
-        _studentService = studentProvider;        
-        _studentAddDialogService = studentAddDialogService;
-        _updateStudentDialogService = updateStudentDialogService;
+        _studentService = studentProvider;
+        _addDialogService = addDialogService;
+        _updateDialogService = studentDialogService;
 
         _students = new ObservableCollection<StudentModel>();
 
@@ -46,7 +44,7 @@ public class StudentsViewModel : INotifyPropertyChanged
         AddStudentCommand = new RelayCommand(AddStudent);
     }
 
-    public void LoadStudents(GroupModel? groupModel)
+    private void LoadStudents(GroupModel? groupModel)
     {
         if (groupModel == null)
             return;
@@ -60,37 +58,37 @@ public class StudentsViewModel : INotifyPropertyChanged
             _students.Add(new StudentModel(student));
         }
     }
-    public void DeleteStudent(StudentModel? studentModel)
+    private void DeleteStudent(StudentModel? studentModel)
     {
         if (studentModel == null)
-            return;        
+            return;
 
         _studentService.DeleteStudent(studentModel.Id);
         _students.Remove(studentModel);
     }
-    public void UpdateStudent(StudentModel? studentModel)
-    {        
+    private void UpdateStudent(StudentModel? studentModel)
+    {
         if (studentModel == null || _currentGroup == null)
             return;
 
-        StudentDialogResult? result = _updateStudentDialogService.ShowUpdateStudentDialog(studentModel);
+        StudentDialogResult? result = _updateDialogService.ShowUpdateStudentDialog(studentModel);
 
         if (result is not null)
         {
             Student student = StudentMapper.ToDomain(_currentGroup.Id, result);
             StudentMapper.UpdateModelFromDialogResult(result, studentModel);
-            _studentService.UpdateStudent(student);         
+            _studentService.UpdateStudent(student);
         }
     }
-    public void AddStudent()
+    private void AddStudent()
     {
         if (_currentGroup == null)
             return;
 
-        StudentDialogResult? result = _studentAddDialogService.ShowAddStudentDialog();
+        StudentDialogResult? result = _addDialogService.ShowAddStudentDialog();
 
         if (result is not null)
-        {            
+        {
             Student student = StudentMapper.ToDomain(_currentGroup.Id, result);
 
             _studentService.AddStudent(student);
