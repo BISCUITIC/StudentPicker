@@ -12,6 +12,6 @@ internal class GroupConfiguration : IEntityTypeConfiguration<Group>
 
         builder.HasKey(group => group.Id);
 
-        builder.HasAlternateKey(group => new { group.Number, group.Letter });
+        builder.HasIndex(group => new { group.Number, group.Letter }).IsUnique();
     }
 }

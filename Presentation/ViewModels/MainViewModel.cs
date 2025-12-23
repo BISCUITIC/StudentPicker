@@ -1,4 +1,6 @@
-﻿namespace Presentation.ViewModels;
+﻿using System.Windows;
+
+namespace Presentation.ViewModels;
 
 public class MainViewModel
 {
@@ -6,7 +8,7 @@ public class MainViewModel
     public StudentsViewModel StudentsViewModel { get; }    
 
     public MainViewModel(GroupsViewModel groupsViewModel, StudentsViewModel studentsViewModel)
-    {
+    {        
         GroupsViewModel = groupsViewModel;
         StudentsViewModel = studentsViewModel;
     }

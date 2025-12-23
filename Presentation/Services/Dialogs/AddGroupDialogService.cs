@@ -18,7 +18,7 @@ public class AddGroupDialogService : GroupDialogService, IAddGroupDialogService
 
     public GroupDialogResult? ShowAddGroupDialog()
     {       
-        IGroupDialog dialog = _dialogFactory.CreateDialog();
+        IGroupDialog dialog = _dialogFactory.CreateDialog();        
         return ShowInternal(dialog, dialog.Context);
     }
 }

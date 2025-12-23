@@ -21,7 +21,7 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Data.Model.Group", b =>
+            modelBuilder.Entity("Domain.Entities.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,12 +37,13 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Number", "Letter");
+                    b.HasIndex("Number", "Letter")
+                        .IsUnique();
 
                     b.ToTable("groups", (string)null);
                 });
 
-            modelBuilder.Entity("Data.Model.Student", b =>
+            modelBuilder.Entity("Domain.Entities.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,9 +73,9 @@ namespace Infrastructure.Migrations
                     b.ToTable("students", (string)null);
                 });
 
-            modelBuilder.Entity("Data.Model.Student", b =>
+            modelBuilder.Entity("Domain.Entities.Student", b =>
                 {
-                    b.HasOne("Data.Model.Group", "StudyGroup")
+                    b.HasOne("Domain.Entities.Group", "StudyGroup")
                         .WithMany("Students")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -83,7 +84,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("StudyGroup");
                 });
 
-            modelBuilder.Entity("Data.Model.Group", b =>
+            modelBuilder.Entity("Domain.Entities.Group", b =>
                 {
                     b.Navigation("Students");
                 });

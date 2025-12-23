@@ -12,23 +12,23 @@ public class Student
 
     private Student() { } // Конструктор без параметров для EF core чтобы он мог сопоставить сущности
 
-    public Student(string name, string secondName, Group studyGroup)
+    public Student(string name, string secondName, int groupId)
     {
         Name= name;
         SecondName= secondName;
         FullName= Name + " " + SecondName;
 
-        StudyGroup = studyGroup;
-        GroupId = studyGroup.Id;
+        GroupId = groupId;        
     }
 
-    public Student(string name, string secondName, int studyGroupId)
+    public Student(int id, string name, string secondName, int groupId)
     {
+        Id = id;
         Name = name;
         SecondName = secondName;
         FullName = Name + " " + SecondName;
-        
-        GroupId = studyGroupId;
+
+        GroupId = groupId;
     }
 
     public void UpdateSecondName(string secondName)

@@ -37,9 +37,18 @@ public class GroupRepository : IGroupRepository
         _context.SaveChanges();
     }
 
-    public void Update(Group group)
+    public void Update(Group updateGroup)
     {
-        _context.Groups.Update(group);
-        _context.SaveChanges();
+        Group? group = _context.Groups
+                               .FirstOrDefault(group => group.Id == updateGroup.Id);
+
+        if (group is not null)
+        {
+            _context.Entry(group)
+                    .CurrentValues
+                    .SetValues(updateGroup);
+
+            _context.SaveChanges();
+        }
     }
 }

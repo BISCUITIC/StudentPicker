@@ -3,6 +3,7 @@ using Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure;
 
@@ -13,15 +14,12 @@ public class ApplicationContext : DbContext
 
     private readonly IConfigurationRoot _connection;
 
-    public ApplicationContext(IConfigurationRoot connection)
-    {
-        _connection = connection;
+    public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+    {       
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_connection.GetConnectionString("DefaultConnection"));
-
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
 

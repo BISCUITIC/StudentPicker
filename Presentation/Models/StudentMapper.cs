@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 using Presentation.Services.DTO;
 
 namespace Presentation.Models;
@@ -23,13 +24,28 @@ public static class StudentMapper
         model.Letter = result.Letter;
     }
 
-    public static Student ToDomain(int groupId, StudentDialogResult result)
-    {
-        return new Student(result.Name, result.SecondName, groupId);
-    }
+    //public static Student ToDomain(int groupId, StudentDialogResult result)
+    //{
+    //    return new Student(result.Name, result.SecondName, groupId);
+    //}
 
     public static Group ToDomain(GroupDialogResult result)
     {
         return new Group(result.Number, result.Letter);
+    }
+
+
+    public static Student ToDomain(StudentModel model, int groupId)
+    {
+        return new Student(model.Id, model.Name, model.SecondName, groupId);
+    }
+    public static Student ToDomain(StudentDialogResult result, int groupId)
+    {
+        return new Student(result.Name, result.SecondName, groupId);
+    }
+
+    public static Group ToDomain(GroupModel model)
+    {
+        return new Group(model.Id, model.Number, model.Letter);
     }
 }

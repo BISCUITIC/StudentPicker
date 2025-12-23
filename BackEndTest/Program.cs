@@ -28,12 +28,12 @@ internal class Program
         var groupProvider = provider.GetRequiredService<IGroupRepository>();
         var studentProvider = provider.GetRequiredService<IStudentRepository>();
 
-        Group group = groupProvider.GetById(1) ?? throw new Exception();
-        List<Student> students = studentProvider.GetAllByGroupId(group);
+        //Group group = groupProvider.GetById(1) ?? throw new Exception();
+        ////List<Student> students = studentProvider.GetAllByGroupId(group);
 
-        foreach (Student student in students)
-        {
-            Console.WriteLine(student.FullName);
-        }
+        //foreach (Student student in students)
+        //{
+        //    Console.WriteLine(student.FullName);
+        //}
     }
 }

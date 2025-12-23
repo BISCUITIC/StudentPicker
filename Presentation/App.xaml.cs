@@ -3,6 +3,7 @@ using Application.Services;
 using Application.Services.Interfaces;
 using Infrastructure;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,14 +31,19 @@ public partial class App : System.Windows.Application
 
     public App()
     {
-        IConfigurationRoot connection = new ConfigurationBuilder()
-                                        .SetBasePath(Directory.GetCurrentDirectory())
-                                        .AddJsonFile("appsettings.json")
-                                        .Build();
+        var config = new ConfigurationBuilder()
+                         .SetBasePath(Directory.GetCurrentDirectory())
+                         .AddJsonFile("appsettings.json")
+                         .Build();
+        var connectionString = config.GetConnectionString("DefaultConnection");
+        var options = new DbContextOptionsBuilder<ApplicationContext>()
+                          .UseNpgsql(connectionString)
+                          .Options;
+
         _host = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
                     {
-                        services.AddSingleton<IConfigurationRoot>(connection);
+                        services.AddSingleton(options);
                         services.AddDbContext<ApplicationContext>();
 
                         services.AddScoped<IGroupRepository, GroupRepository>();

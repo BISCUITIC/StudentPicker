@@ -13,4 +13,11 @@ public class Group
         Number = number;
         Letter = letter;
     }
+
+    public Group(int id, int number, char letter)
+    {
+        Id = id;
+        Number = number;
+        Letter = letter;
+    }
 }

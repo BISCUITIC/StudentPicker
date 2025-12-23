@@ -7,6 +7,7 @@ using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
@@ -31,7 +32,7 @@ public class StudentsViewModel : INotifyPropertyChanged
     public StudentsViewModel(IStudentService studentProvider,
                              IAddStudentDialogService addDialogService,
                              IUpdateStudentDialogService studentDialogService)
-    {
+    {        
         _studentService = studentProvider;
         _addDialogService = addDialogService;
         _updateDialogService = studentDialogService;
@@ -50,7 +51,7 @@ public class StudentsViewModel : INotifyPropertyChanged
             return;
 
         _currentGroup = groupModel;
-        _students.Clear();
+        _students.Clear();        
 
         IReadOnlyCollection<Student> students = _studentService.GetStudents(groupModel.Id);
         foreach (var student in students)
@@ -74,9 +75,10 @@ public class StudentsViewModel : INotifyPropertyChanged
         StudentDialogResult? result = _updateDialogService.ShowUpdateStudentDialog(studentModel);
 
         if (result is not null)
-        {
-            Student student = StudentMapper.ToDomain(_currentGroup.Id, result);
-            StudentMapper.UpdateModelFromDialogResult(result, studentModel);
+        {            
+            StudentMapper.UpdateModelFromDialogResult(result, studentModel);            
+            Student student = StudentMapper.ToDomain(studentModel, _currentGroup.Id);
+
             _studentService.UpdateStudent(student);
         }
     }
@@ -88,8 +90,8 @@ public class StudentsViewModel : INotifyPropertyChanged
         StudentDialogResult? result = _addDialogService.ShowAddStudentDialog();
 
         if (result is not null)
-        {
-            Student student = StudentMapper.ToDomain(_currentGroup.Id, result);
+        {            
+            Student student = StudentMapper.ToDomain(result, _currentGroup.Id);
 
             _studentService.AddStudent(student);
             _students.Add(new StudentModel(student));

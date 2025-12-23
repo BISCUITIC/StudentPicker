@@ -1,7 +1,6 @@
 ﻿using Presentation.Interfaces;
 using Presentation.Services.DTO;
 using Presentation.ViewModels.Dialogs;
-using System.Windows;
 
 namespace Presentation.Services.Dialogs.Abstractions;
 
@@ -9,8 +8,6 @@ public abstract class GroupDialogService : DialogService<GroupDialogResult, Grou
 {
     protected override GroupDialogResult GetResult(GroupDialogViewModel context)
     {
-        MessageBox.Show(context.Number.ToString());
-        MessageBox.Show(context.Letter[0].ToString());
         return new GroupDialogResult() { Number = context.Number, Letter = context.Letter[0] };
     }
 
@@ -21,7 +18,7 @@ public abstract class GroupDialogService : DialogService<GroupDialogResult, Grou
 
     private bool DialogValid(GroupDialogViewModel context)
     {
-        return context.Number > 0 && context.Number < 11 &&
+        return context.Number > 0 && context.Number < 12 &&
                !string.IsNullOrEmpty(context.Letter) &&
                char.IsLetter(context.Letter[0]);
     }
