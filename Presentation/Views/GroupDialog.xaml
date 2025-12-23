@@ -3,17 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"           
         Style="{StaticResource DialogWindowStyle}">
 
-    <DockPanel Margin="10">
-        <StackPanel DockPanel.Dock="Top" 
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
                     Orientation="Vertical">
+            <TextBlock Style="{StaticResource DefualtTextBlockStyle}"
+                       Text="Group number"/>
             <TextBox x:Name="Number"
                      Style="{StaticResource DefualtTextBoxStyle}"
                      Text="{Binding Number}"/>
+
+            <TextBlock Style="{StaticResource DefualtTextBlockStyle}"
+                       Text="Group letter"/>
             <TextBox x:Name="Letter"
                      Style="{StaticResource DefualtTextBoxStyle}"
                      Text="{Binding Letter}"/>
+
+            <TextBlock x:Name="ErrorMessageBlock" 
+                       Style="{StaticResource DefualtTextBlockStyle}"
+                       Text="{Binding ErrorMessage}"></TextBlock>
         </StackPanel>
-        <StackPanel DockPanel.Dock="Bottom"
+        
+        <StackPanel Grid.Row="1"
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center">
             <Button Content="Save"
@@ -23,6 +38,6 @@
                     Style="{StaticResource DialogButtonStyle}"
                     Command="{Binding CancelCommand}"/>
         </StackPanel>
-    </DockPanel>
+    </Grid>
 
 </Window>

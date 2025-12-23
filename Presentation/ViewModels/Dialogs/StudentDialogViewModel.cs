@@ -1,17 +1,23 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿namespace Presentation.ViewModels.Dialogs;
 
-namespace Presentation.ViewModels.Dialogs;
-
-public class StudentDialogViewModel : DialogViewModel, INotifyPropertyChanged
+public class StudentDialogViewModel : DialogViewModel
 {
     public string? Name { get; set; }
     public string? SecondName { get; set; }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-    public void OnPropertyChanged([CallerMemberName] string prop = "")
+    protected override bool CanSave()
     {
-        if (PropertyChanged != null)
-            PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        if (string.IsNullOrWhiteSpace(Name))
+        {
+            ErrorMessage = "Enter the student's name";
+            return false;
+        }
+        if (string.IsNullOrWhiteSpace(SecondName))
+        {
+            ErrorMessage = "Enter the student's last name";
+            return false;
+        }
+
+        return true;
     }
 }

@@ -1,15 +1,16 @@
 ﻿using Presentation.Interfaces;
+using Presentation.ViewModels.Dialogs;
 
 namespace Presentation.Services.Dialogs.Abstractions;
 
 public abstract class DialogService<Result, Context, Dialog>
        where Result : class
-       where Context : class
+       where Context : DialogViewModel
        where Dialog : IDialog
 {
     protected Result? ShowInternal(Dialog dialog, Context context)
     {
-        if (IsDialogConfirmedAndValid(dialog, context))
+        if (IsDialogConfirmed(dialog))
         {
             return GetResult(context);
         }
@@ -19,7 +20,10 @@ public abstract class DialogService<Result, Context, Dialog>
         }
     }
 
-    protected abstract Result GetResult(Context context);
+    protected bool IsDialogConfirmed(Dialog dialog)
+    {
+        return dialog.ShowDialog() == true;
+    }
 
-    protected abstract bool IsDialogConfirmedAndValid(Dialog dialog, Context context);
+    protected abstract Result GetResult(Context context);
 }

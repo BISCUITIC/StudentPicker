@@ -1,17 +1,25 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿namespace Presentation.ViewModels.Dialogs;
 
-namespace Presentation.ViewModels.Dialogs;
-
-public class GroupDialogViewModel : DialogViewModel, INotifyPropertyChanged
+public class GroupDialogViewModel : DialogViewModel
 {
     public int Number { get; set; }
     public string? Letter { get; set; }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-    public void OnPropertyChanged([CallerMemberName] string prop = "")
+    protected override bool CanSave()
     {
-        if (PropertyChanged != null)
-            PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        if (Number <= 0 || Number >= 12)
+        {
+            ErrorMessage = "The group number must be in the range from 1 to 11";
+            return false;
+        }
+
+        if(string.IsNullOrEmpty(Letter) || !char.IsLetter(Letter[0]))
+        {
+            ErrorMessage = "The group letter must be in the range from A(a) to Z(z)";
+            return false;
+        }
+        
+        return true;
     }
 }
+    

@@ -17,6 +17,8 @@
 
                 <ResourceDictionary Source="/Resources/Styles/TextBoxes/DefualtTextBoxStyle.xaml"/>
 
+                <ResourceDictionary Source="/Resources/Styles/TextBlockes/DefualtTextBlockStyle.xaml"/>
+
                 <ResourceDictionary Source="/Resources/Templates/Group/GroupItemsPanelTemplate.xaml"/>
                 <ResourceDictionary Source="/Resources/Templates/Group/GroupItemTemplate.xaml"/>
 

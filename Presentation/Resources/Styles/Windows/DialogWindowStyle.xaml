@@ -6,7 +6,7 @@
         <Setter Property="FontFamily" Value="Verdana"/>
         <Setter Property="Background" Value="#FF1F1F1F"/>
 
-        <Setter Property="Height" Value="200"/>
+        <Setter Property="Height" Value="275"/>
         <Setter Property="Width"  Value="300"/>
 
         <Setter Property="ResizeMode" Value="NoResize"/>
