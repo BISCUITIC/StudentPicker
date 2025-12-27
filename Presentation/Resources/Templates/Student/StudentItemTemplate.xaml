@@ -52,6 +52,7 @@
                               Header="Edit"/>
                 </ContextMenu>
             </StackPanel.ContextMenu>
+
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
