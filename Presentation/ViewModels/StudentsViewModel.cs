@@ -7,6 +7,7 @@ using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
@@ -16,6 +17,7 @@ public class StudentsViewModel : INotifyPropertyChanged
     private readonly IStudentService _studentService;
     private readonly IAddStudentDialogService _addDialogService;
     private readonly IUpdateStudentDialogService _updateDialogService;
+    private readonly IStudentPickerService _studentPickerService;
 
     private readonly ObservableCollection<StudentModel> _students;
 
@@ -28,13 +30,17 @@ public class StudentsViewModel : INotifyPropertyChanged
     public ICommand UpdateStudentCommand { get; }
     public ICommand AddStudentCommand { get; }
 
+    public ICommand PickRandomStudentCommand { get; }
+
     public StudentsViewModel(IStudentService studentProvider,
                              IAddStudentDialogService addDialogService,
-                             IUpdateStudentDialogService studentDialogService)
+                             IUpdateStudentDialogService studentDialogService,
+                             IStudentPickerService studentPickerService)
     {
         _studentService = studentProvider;
         _addDialogService = addDialogService;
         _updateDialogService = studentDialogService;
+        _studentPickerService = studentPickerService;
 
         _students = new ObservableCollection<StudentModel>();
 
@@ -42,6 +48,7 @@ public class StudentsViewModel : INotifyPropertyChanged
         DeleteStudentCommand = new RelayCommand<StudentModel>(DeleteStudent);
         UpdateStudentCommand = new RelayCommand<StudentModel>(UpdateStudent);
         AddStudentCommand = new RelayCommand(AddStudent);
+        PickRandomStudentCommand = new RelayCommand(PickRandomStudent);
     }
 
     private void LoadStudents(GroupModel? groupModel)
@@ -94,6 +101,26 @@ public class StudentsViewModel : INotifyPropertyChanged
 
             _studentService.AddStudent(student);
             _students.Add(new StudentModel(student));
+        }
+    }
+
+    private void PickRandomStudent()
+    {        
+        if (_currentGroup == null)
+            return;
+
+        List<int> available = _students.Where(student => !student.Excluded)
+                                       .Select(student => student.Id)
+                                       .ToList();
+
+        int? pickedId = _studentPickerService.PickRandom(available);
+
+        if(pickedId is not null)
+        {
+            StudentModel? pickedStudent = _students.FirstOrDefault(student => student.Id == pickedId);
+
+            if(pickedStudent is not null)
+                pickedStudent.Excluded = true;
         }
     }
 

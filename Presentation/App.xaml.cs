@@ -52,6 +52,9 @@ public partial class App : System.Windows.Application
                         services.AddScoped<IStudentService, StudentService>();
                         services.AddScoped<IGroupService, GroupService>();
 
+                        services.AddScoped<IStudentPickerService, StudentPickerService>();
+                        services.AddScoped<IRandomProvider, RandomChoiceProvider>();
+
                         services.AddTransient<AddStudentDialogFactory>();
                         services.AddTransient<UpdateStudentDialogFactory>();
                         services.AddTransient<AddGroupDialogFactory>();

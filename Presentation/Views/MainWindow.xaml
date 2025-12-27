@@ -55,7 +55,8 @@
         <DockPanel Grid.Row="3">
             <Button x:Name="RandomButton" 
                     Content="Random"
-                    Style="{StaticResource RandomButtonStyle}"/>
+                    Style="{StaticResource RandomButtonStyle}"
+                    Command="{Binding StudentsViewModel.PickRandomStudentCommand}"/>
         </DockPanel>
     </Grid>
 </Window>

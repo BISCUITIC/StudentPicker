@@ -2,6 +2,23 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
+    <Style TargetType="StackPanel" x:Key="StudentPanelStyle">
+        <Style.Setters>
+            <Setter Property="Background" Value="#FF313131" />
+        </Style.Setters>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Excluded}" Value="False">
+                <Setter Property="Background" Value="Red"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=Excluded}" Value="True">
+                <Setter Property="Background" Value="Blue"/>
+            </DataTrigger>
+            
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="TextBlock" x:Key="StudentTextBlockStyle">
         <Style.Setters>
             <Setter Property="Margin" Value="5"/>
@@ -13,14 +30,14 @@
 
     <DataTemplate x:Key="StudentItemTemplate">
         <StackPanel Orientation="Horizontal" 
-                    Background="#FF313131" 
+                    Style="{StaticResource ResourceKey=StudentPanelStyle}"
                     Tag="{Binding ElementName=CoreWindow}">
             <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                     Text="{Binding Path=Name}">
+                       Text="{Binding Path=Name}">
             </TextBlock>
 
             <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                     Text="{Binding Path=SecondName}">
+                       Text="{Binding Path=SecondName}">
             </TextBlock>
 
             <StackPanel.ContextMenu>
