@@ -30,8 +30,17 @@
 
     <DataTemplate x:Key="StudentItemTemplate">
         <StackPanel Orientation="Horizontal" 
-                    Style="{StaticResource ResourceKey=StudentPanelStyle}"
+                    Style="{StaticResource ResourceKey=StudentPanelStyle}"                    
                     Tag="{Binding ElementName=CoreWindow}">
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding Path=DataContext.StudentsViewModel.ResetExcludedCommand,
+                                                             RelativeSource={RelativeSource AncestorType=Window}}"
+                                           CommandParameter="{Binding}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
             <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
                        Text="{Binding Path=Name}">
             </TextBlock>

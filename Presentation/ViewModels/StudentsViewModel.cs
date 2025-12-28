@@ -7,7 +7,6 @@ using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
@@ -32,6 +31,8 @@ public class StudentsViewModel : INotifyPropertyChanged
 
     public ICommand PickRandomStudentCommand { get; }
 
+    public ICommand ResetExcludedCommand { get; }
+
     public StudentsViewModel(IStudentService studentProvider,
                              IAddStudentDialogService addDialogService,
                              IUpdateStudentDialogService studentDialogService,
@@ -49,6 +50,7 @@ public class StudentsViewModel : INotifyPropertyChanged
         UpdateStudentCommand = new RelayCommand<StudentModel>(UpdateStudent);
         AddStudentCommand = new RelayCommand(AddStudent);
         PickRandomStudentCommand = new RelayCommand(PickRandomStudent);
+        ResetExcludedCommand = new RelayCommand<StudentModel>(ResetExluded);
     }
 
     private void LoadStudents(GroupModel? groupModel)
@@ -105,7 +107,7 @@ public class StudentsViewModel : INotifyPropertyChanged
     }
 
     private void PickRandomStudent()
-    {        
+    {
         if (_currentGroup == null)
             return;
 
@@ -115,13 +117,21 @@ public class StudentsViewModel : INotifyPropertyChanged
 
         int? pickedId = _studentPickerService.PickRandom(available);
 
-        if(pickedId is not null)
+        if (pickedId is not null)
         {
             StudentModel? pickedStudent = _students.FirstOrDefault(student => student.Id == pickedId);
 
-            if(pickedStudent is not null)
+            if (pickedStudent is not null)
                 pickedStudent.Excluded = true;
         }
+    }
+
+    private void ResetExluded(StudentModel? studentModel)
+    {
+        if (studentModel == null)
+            return;
+
+        studentModel.Excluded = !studentModel.Excluded;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

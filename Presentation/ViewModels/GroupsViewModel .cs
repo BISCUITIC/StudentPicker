@@ -5,7 +5,6 @@ using Presentation.Models;
 using Presentation.Services.DTO;
 using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels;
