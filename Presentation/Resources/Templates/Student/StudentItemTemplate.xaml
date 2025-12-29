@@ -8,11 +8,11 @@
         </Style.Setters>
 
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=Excluded}" Value="False">
+            <DataTrigger Binding="{Binding Path=IsExcluded}" Value="False">
                 <Setter Property="Background" Value="Red"/>
             </DataTrigger>
 
-            <DataTrigger Binding="{Binding Path=Excluded}" Value="True">
+            <DataTrigger Binding="{Binding Path=IsExcluded}" Value="True">
                 <Setter Property="Background" Value="Blue"/>
             </DataTrigger>
             
@@ -32,33 +32,47 @@
         <StackPanel Orientation="Horizontal" 
                     Style="{StaticResource ResourceKey=StudentPanelStyle}"                    
                     Tag="{Binding ElementName=CoreWindow}">
-            
-            <i:Interaction.Triggers>
+
+            <!--<i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
                     <i:InvokeCommandAction Command="{Binding Path=DataContext.StudentsViewModel.ResetExcludedCommand,
                                                              RelativeSource={RelativeSource AncestorType=Window}}"
                                            CommandParameter="{Binding}"/>
                 </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding ToggleExludedCommand}"/>
+                </i:EventTrigger>
             </i:Interaction.Triggers>
-            
+
             <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                       Text="{Binding Path=Name}">
+                       Text="{Binding Path=Student.Name}">
             </TextBlock>
 
             <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                       Text="{Binding Path=SecondName}">
+                       Text="{Binding Path=Student.SecondName}">
             </TextBlock>
 
             <StackPanel.ContextMenu>
                 <ContextMenu>
+                    <!-- 
                     <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.DeleteStudentCommand,
                                                 RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
                               CommandParameter="{Binding}"
                               Header="Delete"/>
                     <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.UpdateStudentCommand,
-                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                        RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
                               CommandParameter="{Binding}"
                               Header="Edit"/>
+                    -->
+
+                    <MenuItem Command="{Binding DeleteStudentCommand}"
+                              Header="Delete"/>
+                    <MenuItem Command="{Binding UpdateStudentCommand}"
+                              Header="Edit"/>
+                    
                 </ContextMenu>
             </StackPanel.ContextMenu>
 

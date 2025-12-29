@@ -1,4 +1,6 @@
-﻿namespace Presentation.ViewModels;
+﻿using Presentation.ViewModels.Students;
+
+namespace Presentation.ViewModels;
 
 public class MainViewModel
 {

@@ -2,8 +2,8 @@
 using Presentation.Models;
 using Presentation.Services.Dialogs.Abstractions;
 using Presentation.Services.Dialogs.Factories;
+using Presentation.Services.Dialogs.Interfaces;
 using Presentation.Services.DTO;
-using Presentation.Services.Interfaces;
 
 namespace Presentation.Services.Dialogs;
 

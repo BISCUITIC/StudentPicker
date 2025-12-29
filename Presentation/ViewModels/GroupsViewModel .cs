@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Domain.Entities;
 using Presentation.Models;
+using Presentation.Services.Dialogs.Interfaces;
 using Presentation.Services.DTO;
-using Presentation.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -66,8 +66,8 @@ public class GroupsViewModel
 
         if (result is not null)
         {
-            StudentMapper.UpdateModelFromDialogResult(result, groupModel);
-            Group group = StudentMapper.ToDomain(groupModel);
+            StudentModelMapper.UpdateModelFromDialogResult(result, groupModel);
+            Group group = StudentModelMapper.ToDomain(groupModel);
 
             _groupService.UpdateGroup(group);
         }
@@ -78,7 +78,7 @@ public class GroupsViewModel
 
         if (result is not null)
         {
-            Group group = StudentMapper.ToDomain(result);
+            Group group = StudentModelMapper.ToDomain(result);
 
             _groupService.AddGroup(group);
             _groups.Add(new GroupModel(group));

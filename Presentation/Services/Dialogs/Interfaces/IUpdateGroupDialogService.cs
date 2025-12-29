@@ -1,7 +1,7 @@
 ﻿using Presentation.Models;
 using Presentation.Services.DTO;
 
-namespace Presentation.Services.Interfaces;
+namespace Presentation.Services.Dialogs.Interfaces;
 
 public interface IUpdateGroupDialogService
 {

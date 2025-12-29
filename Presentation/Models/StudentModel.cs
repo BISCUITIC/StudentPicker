@@ -9,7 +9,7 @@ public class StudentModel : INotifyPropertyChanged
     private readonly int _id;
     private string _name = null!;
     private string _secondName = null!;
-    private bool _excluded;
+
     public int Id
     {
         get => _id;
@@ -26,18 +26,11 @@ public class StudentModel : INotifyPropertyChanged
         set { _secondName = value; OnPropertyChanged(); }
     }
 
-    public bool Excluded
-    {
-        get => _excluded;
-        set { _excluded = value; OnPropertyChanged(); }
-    }
-
     public StudentModel(Student domain)
     {
         Id = domain.Id;
         Name = domain.Name;
         SecondName = domain.SecondName;
-        Excluded = false;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

@@ -1,9 +1,8 @@
 ﻿using Presentation.Interfaces;
 using Presentation.Services.Dialogs.Abstractions;
 using Presentation.Services.Dialogs.Factories;
+using Presentation.Services.Dialogs.Interfaces;
 using Presentation.Services.DTO;
-using Presentation.Services.Interfaces;
-using System.Windows;
 
 namespace Presentation.Services.Dialogs;
 
@@ -17,8 +16,8 @@ public class AddGroupDialogService : GroupDialogService, IAddGroupDialogService
     }
 
     public GroupDialogResult? ShowAddGroupDialog()
-    {       
-        IGroupDialog dialog = _dialogFactory.CreateDialog();        
+    {
+        IGroupDialog dialog = _dialogFactory.CreateDialog();
         return ShowInternal(dialog, dialog.Context);
     }
 }
