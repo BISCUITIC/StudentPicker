@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.UseCases.DTO;
+using Domain.Entities;
 using Presentation.Services.DTO;
 
 namespace Presentation.Models;
@@ -16,7 +17,11 @@ public static class StudentModelMapper
         model.Number = result.Number;
         model.Letter = result.Letter;
     }
-
+    
+    public static StudentModel ToModel(StudentDTO studentDTO)
+    {
+        return new StudentModel(studentDTO);
+    }
 
     public static Group ToDomain(GroupDialogResult result)
     {

@@ -15,10 +15,10 @@ public class AddStudentUseCase : IAddStudentUseCase
         _studentService = studentService;
     }
 
-    public Student Execute(AddStudentRequest addRequest)
+    public StudentDTO Execute(AddStudentRequest addRequest)
     {
         Student student = Mapper.ToStudent(addRequest);
         _studentService.AddStudent(student);
-        return student;
+        return Mapper.ToStudentDTO(student);        
     }
 }

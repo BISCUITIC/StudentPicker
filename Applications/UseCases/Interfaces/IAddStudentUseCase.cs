@@ -5,5 +5,5 @@ namespace Application.UseCases.Interfaces;
 
 public interface IAddStudentUseCase
 {
-    Student Execute(AddStudentRequest addRequest);
+    StudentDTO Execute(AddStudentRequest addRequest);
 }

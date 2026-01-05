@@ -1,18 +1,19 @@
 ﻿using Application.Services.Interfaces;
-using Application.UseCases;
+using Application.UseCases.DTO;
 using Application.UseCases.Interfaces;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Domain.Entities;
 using Presentation.Models;
 using Presentation.Services;
 using Presentation.Services.Dialogs.Interfaces;
 using Presentation.Services.DTO;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels.Students;
 
-public class StudentsViewModel
+public class StudentsViewModel : ObservableObject
 {
     private readonly ILoadStudentsUseCase _loadStudentsUseCase;
     private readonly IUpdateStudentUseCase _updateStudentUseCase;
@@ -23,10 +24,19 @@ public class StudentsViewModel
     private readonly IAddStudentDialogService _addDialogService;
     private readonly IUpdateStudentDialogService _updateDialogService;
 
+
     private GroupModel? _currentGroup;
+    public GroupModel? CurrentGroup
+    {
+        get => _currentGroup;
+        set { _currentGroup = value; OnCurrentGroupChanged(); }
+    }
 
     private readonly ObservableCollection<StudentItemViewModel> _students;
+
     public ObservableCollection<StudentItemViewModel> Students { get => _students; }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public ICommand LoadStudentsCommand { get; }
     public IRelayCommand AddStudentCommand { get; }
@@ -48,13 +58,13 @@ public class StudentsViewModel
         _updateStudentUseCase = updateStudentUseCase;
         _deleteStudentUseCase = deleteStudentUseCase;
         _addStudentUseCase = addStudentUseCase;
-        _pickStudentUseCase = pickStudentUseCase;        
+        _pickStudentUseCase = pickStudentUseCase;
 
         _students = new ObservableCollection<StudentItemViewModel>();
 
         LoadStudentsCommand = new RelayCommand<GroupModel>(LoadStudents);
-        AddStudentCommand = new RelayCommand(AddStudent, IsStateValid);
-        PickRandomStudentCommand = new RelayCommand(PickRandomStudent, IsStateValid);
+        AddStudentCommand = new RelayCommand(AddStudent, CanInteract);
+        PickRandomStudentCommand = new RelayCommand(PickRandomStudent, CanInteract);
     }
 
     private void LoadStudents(GroupModel? groupModel)
@@ -62,18 +72,16 @@ public class StudentsViewModel
         if (groupModel == null)
             return;
 
-        _currentGroup = groupModel;
+        CurrentGroup = groupModel;
         _students.Clear();
 
-        IReadOnlyCollection<Student> students = _loadStudentsUseCase.Execute(groupModel.Id);
+        IReadOnlyCollection<StudentDTO> studentsDTO = _loadStudentsUseCase.Execute(groupModel.Id);
 
-        foreach (Student student in students)
+        foreach (StudentDTO studentDTO in studentsDTO)
         {
-            AddNewStudentViewModel(student);
+            StudentModel studentModel = StudentModelMapper.ToModel(studentDTO);
+            AddNewStudentViewModel(studentModel);
         }
-
-        AddStudentCommand.NotifyCanExecuteChanged();
-        PickRandomStudentCommand.NotifyCanExecuteChanged();
     }
 
     private void DeleteStudent(StudentItemViewModel studentModel)
@@ -96,14 +104,21 @@ public class StudentsViewModel
 
     private void AddStudent()
     {
+        if (CurrentGroup is null)
+            return;
+
         StudentDialogResult? result = _addDialogService.ShowAddStudentDialog();
 
-        if (result is not null)
-        {
-            Student student = _addStudentUseCase.Execute(Mapper.ToAddStudentRequest(result, _currentGroup!.Id));
+        if (result is null)
+            return;
 
-            AddNewStudentViewModel(student);
-        }
+        AddStudentRequest request = Mapper.ToAddStudentRequest(result, CurrentGroup.Id);
+
+        StudentDTO studentDto = _addStudentUseCase.Execute(request);
+
+        StudentModel studentModel = StudentModelMapper.ToModel(studentDto);
+        
+        AddNewStudentViewModel(studentModel);
     }
 
     private void PickRandomStudent()
@@ -119,8 +134,7 @@ public class StudentsViewModel
         }
     }
 
-    private bool IsStateValid() => _currentGroup is not null;
-    private void AddNewStudentViewModel(Student student)
+    private void AddNewStudentViewModel(StudentModel student)
     {
         StudentItemViewModel newItem = new StudentItemViewModel(student);
 
@@ -128,5 +142,12 @@ public class StudentsViewModel
         newItem.RequestUpdate += UpdateStudent;
 
         _students.Add(newItem);
+    }
+
+    private bool CanInteract() => CurrentGroup is not null;
+    private void OnCurrentGroupChanged()
+    {
+        AddStudentCommand.NotifyCanExecuteChanged();
+        PickRandomStudentCommand.NotifyCanExecuteChanged();
     }
 }

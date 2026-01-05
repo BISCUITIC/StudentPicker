@@ -14,4 +14,14 @@ internal static class Mapper
     {
         return new Student(studentRequest.Name, studentRequest.SecondName, studentRequest.GroupId);
     }
+
+    public static StudentDTO ToStudentDTO(Student student)
+    {
+        return new StudentDTO() 
+        { 
+            Id = student.Id, 
+            Name = student.Name, 
+            SecondName = student.SecondName 
+        };
+    }
 }

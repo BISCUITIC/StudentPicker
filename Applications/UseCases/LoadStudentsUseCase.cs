@@ -1,6 +1,9 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Services;
+using Application.Services.Interfaces;
+using Application.UseCases.DTO;
 using Application.UseCases.Interfaces;
 using Domain.Entities;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Application.UseCases;
 
@@ -13,8 +16,9 @@ public class LoadStudentsUseCase : ILoadStudentsUseCase
         _studentService = studentService;
     }
 
-    public IReadOnlyCollection<Student> Execute(int groupId)
+    public IReadOnlyCollection<StudentDTO> Execute(int groupId)
     {
-        return _studentService.GetStudents(groupId);
+        IReadOnlyCollection<Student> students = _studentService.GetStudents(groupId);
+        return students.Select(student => Mapper.ToStudentDTO(student)).ToList();           
     }
 }

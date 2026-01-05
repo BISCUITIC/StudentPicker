@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.UseCases.DTO;
+using Domain.Entities;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -26,11 +27,11 @@ public class StudentModel : INotifyPropertyChanged
         set { _secondName = value; OnPropertyChanged(); }
     }
 
-    public StudentModel(Student domain)
+    public StudentModel(StudentDTO studentDTO)
     {
-        Id = domain.Id;
-        Name = domain.Name;
-        SecondName = domain.SecondName;
+        Id = studentDTO.Id;
+        Name = studentDTO.Name;
+        SecondName = studentDTO.SecondName;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
