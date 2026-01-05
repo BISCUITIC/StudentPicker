@@ -67,13 +67,9 @@ public class StudentsViewModel
 
         IReadOnlyCollection<Student> students = _loadStudentsUseCase.Execute(groupModel.Id);
 
-        foreach (var student in students)
+        foreach (Student student in students)
         {
-            var newItem = new StudentItemViewModel(student);
-            newItem.RequestDelete += DeleteStudent;
-            newItem.RequestUpdate += UpdateStudent;
-
-            _students.Add(newItem);
+            AddNewStudentViewModel(student);
         }
 
         AddStudentCommand.NotifyCanExecuteChanged();
@@ -105,7 +101,8 @@ public class StudentsViewModel
         if (result is not null)
         {
             Student student = _addStudentUseCase.Execute(Mapper.ToAddStudentRequest(result, _currentGroup!.Id));
-            _students.Add(new StudentItemViewModel(student));
+
+            AddNewStudentViewModel(student);
         }
     }
 
@@ -123,4 +120,13 @@ public class StudentsViewModel
     }
 
     private bool IsStateValid() => _currentGroup is not null;
+    private void AddNewStudentViewModel(Student student)
+    {
+        StudentItemViewModel newItem = new StudentItemViewModel(student);
+
+        newItem.RequestDelete += DeleteStudent;
+        newItem.RequestUpdate += UpdateStudent;
+
+        _students.Add(newItem);
+    }
 }
