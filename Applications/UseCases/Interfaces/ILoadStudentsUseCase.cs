@@ -1,8 +1,8 @@
-﻿using Domain.Entities;
+﻿using Application.UseCases.DTO;
 
 namespace Application.UseCases.Interfaces;
 
 public interface ILoadStudentsUseCase
 {
-    IReadOnlyCollection<Student> Execute(int groupId);
+    IReadOnlyCollection<StudentDTO> Execute(int groupId);
 }

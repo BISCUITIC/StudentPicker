@@ -2,7 +2,7 @@
 
 public class AddStudentRequest
 {
-    public string Name { get; init; } = null!;
-    public string SecondName { get; init; } = null!;
+    public string Name { get; init; } = string.Empty;
+    public string SecondName { get; init; } = string.Empty;
     public int GroupId { get; init; }
 }

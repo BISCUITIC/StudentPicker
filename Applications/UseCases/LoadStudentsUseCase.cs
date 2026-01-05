@@ -3,7 +3,6 @@ using Application.Services.Interfaces;
 using Application.UseCases.DTO;
 using Application.UseCases.Interfaces;
 using Domain.Entities;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Application.UseCases;
 
@@ -19,6 +18,6 @@ public class LoadStudentsUseCase : ILoadStudentsUseCase
     public IReadOnlyCollection<StudentDTO> Execute(int groupId)
     {
         IReadOnlyCollection<Student> students = _studentService.GetStudents(groupId);
-        return students.Select(student => Mapper.ToStudentDTO(student)).ToList();           
+        return students.Select(student => Mapper.ToStudentDTO(student)).ToList();
     }
 }
