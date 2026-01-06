@@ -8,5 +8,6 @@ public interface IStudentRepository
     Student? GetById(int id);
     void Add(Student student);
     void Remove(int id);
-    void Update(Student student);
+    //void Update(Student student);
+    void SaveChanges();
 }

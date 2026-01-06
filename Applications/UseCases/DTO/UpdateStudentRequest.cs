@@ -3,6 +3,5 @@
 public sealed record class UpdateStudentRequest(
     int Id,
     string Name,
-    string SecondName,
-    int GroupId
+    string SecondName    
 );

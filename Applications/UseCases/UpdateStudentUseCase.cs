@@ -1,7 +1,7 @@
-﻿using Application.Services;
-using Application.Services.Interfaces;
+﻿using Application.Services.Interfaces;
 using Application.UseCases.DTO;
 using Application.UseCases.Interfaces;
+using Domain.Entities;
 
 namespace Application.UseCases;
 
@@ -16,6 +16,11 @@ public class UpdateStudentUseCase : IUpdateStudentUseCase
 
     public void Execute(UpdateStudentRequest updateRequest)
     {
-        _studentService.UpdateStudent(Mapper.ToStudent(updateRequest));
+        Student student = _studentService.GetStudent(updateRequest.Id);
+        
+        student.UpdateName(updateRequest.Name);
+        student.UpdateSecondName(updateRequest.SecondName);
+
+        _studentService.SaveChanges();
     }
 }

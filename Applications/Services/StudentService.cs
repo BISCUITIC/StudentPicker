@@ -27,12 +27,12 @@ public class StudentService : IStudentService
         _studentRepository.Add(student);        
     }
 
-    public void UpdateStudent(Student student)
-    {
-        _studentRepository.Update(student);
-    }
     public void DeleteStudent(int studentId)
     {
         _studentRepository.Remove(studentId);
+    }
+    public void SaveChanges()
+    {
+        _studentRepository.SaveChanges();
     }
 }

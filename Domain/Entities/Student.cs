@@ -30,4 +30,14 @@ public class Student
 
         GroupId = groupId;
     }
+
+    public void UpdateName(string name)
+    {
+        Name = name;    
+    }
+
+    public void UpdateSecondName(string secondName)
+    {
+        SecondName = secondName;
+    }
 }

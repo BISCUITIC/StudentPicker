@@ -40,18 +40,8 @@ public class StudentRepository : IStudentRepository
         _context.SaveChanges();
     }
 
-    public void Update(Student updateStudent)
+    public void SaveChanges()
     {
-        Student? student = _context.Students
-                                   .FirstOrDefault(student => student.Id == updateStudent.Id);
-
-        if (student is not null)
-        {
-            _context.Entry(student)
-                    .CurrentValues
-                    .SetValues(updateStudent);
-
-            _context.SaveChanges();
-        }
+        _context.SaveChanges();
     }
 }

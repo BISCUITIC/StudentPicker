@@ -7,13 +7,11 @@ namespace Presentation.Services;
 internal static class Mapper
 {
     public static UpdateStudentRequest ToUpdateStudentRequest(StudentDialogResult dialogResult,
-                                                              int studentId,
-                                                              int groupId)
+                                                              int studentId)
     {
         return new UpdateStudentRequest(Id: studentId,
                                         Name: dialogResult.Name,
-                                        SecondName: dialogResult.SecondName,
-                                        GroupId: groupId);
+                                        SecondName: dialogResult.SecondName);
     }
 
     public static DeleteStudentRequest ToDeleteStudentRequest(int studentId)
