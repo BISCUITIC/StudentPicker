@@ -1,4 +1,4 @@
-﻿namespace Presentation.Services.DTO;
+﻿namespace Presentation.Services.Dialogs.DTO;
 
 public class GroupDialogResult
 {

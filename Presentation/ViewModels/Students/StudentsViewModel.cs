@@ -1,25 +1,18 @@
 ﻿using Application.Services.Interfaces;
 using Application.UseCases.DTO;
-using Application.UseCases.Interfaces;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Presentation.Models;
 using Presentation.Services;
+using Presentation.Services.Dialogs.DTO;
 using Presentation.Services.Dialogs.Interfaces;
-using Presentation.Services.DTO;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels.Students;
 
-public class StudentsViewModel : ObservableObject
+public class StudentsViewModel
 {
-    private readonly ILoadStudentsUseCase _loadStudentsUseCase;
-    private readonly IUpdateStudentUseCase _updateStudentUseCase;
-    private readonly IDeleteStudentUseCase _deleteStudentUseCase;
-    private readonly IAddStudentUseCase _addStudentUseCase;
-    private readonly IPickStudentUseCase _pickStudentUseCase;
+    private readonly IStudentApplicationService _applicationService;
 
     private readonly IAddStudentDialogService _addDialogService;
     private readonly IUpdateStudentDialogService _updateDialogService;
@@ -36,29 +29,18 @@ public class StudentsViewModel : ObservableObject
 
     public ObservableCollection<StudentItemViewModel> Students { get => _students; }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public ICommand LoadStudentsCommand { get; }
     public IRelayCommand AddStudentCommand { get; }
     public IRelayCommand PickRandomStudentCommand { get; }
 
     public StudentsViewModel(IAddStudentDialogService addDialogService,
                              IUpdateStudentDialogService studentDialogService,
-                             ILoadStudentsUseCase loadStudentsUseCase,
-                             IUpdateStudentUseCase updateStudentUseCase,
-                             IDeleteStudentUseCase deleteStudentUseCase,
-                             IAddStudentUseCase addStudentUseCase,
-                             IPickStudentUseCase pickStudentUseCase,
-                             IStudentPickerService studentPickerService)
+                             IStudentApplicationService studentApplicationService)
     {
         _addDialogService = addDialogService;
         _updateDialogService = studentDialogService;
 
-        _loadStudentsUseCase = loadStudentsUseCase;
-        _updateStudentUseCase = updateStudentUseCase;
-        _deleteStudentUseCase = deleteStudentUseCase;
-        _addStudentUseCase = addStudentUseCase;
-        _pickStudentUseCase = pickStudentUseCase;
+        _applicationService = studentApplicationService;
 
         _students = new ObservableCollection<StudentItemViewModel>();
 
@@ -75,7 +57,7 @@ public class StudentsViewModel : ObservableObject
         CurrentGroup = groupModel;
         _students.Clear();
 
-        IReadOnlyCollection<StudentDTO> studentsDTO = _loadStudentsUseCase.Execute(groupModel.Id);
+        IReadOnlyCollection<StudentDTO> studentsDTO = _applicationService.Load(groupModel.Id);
 
         foreach (StudentDTO studentDTO in studentsDTO)
         {
@@ -86,7 +68,7 @@ public class StudentsViewModel : ObservableObject
 
     private void DeleteStudent(StudentItemViewModel studentModel)
     {
-        _deleteStudentUseCase.Execute(Mapper.ToDeleteStudentRequest(studentModel.Student.Id));
+        _applicationService.Delete(Mapper.ToDeleteStudentRequest(studentModel.Student.Id));
         _students.Remove(studentModel);
     }
 
@@ -96,7 +78,7 @@ public class StudentsViewModel : ObservableObject
 
         if (result is not null)
         {
-            _updateStudentUseCase.Execute(Mapper.ToUpdateStudentRequest(result, studentViewModel.Student.Id, _currentGroup!.Id));
+            _applicationService.Update(Mapper.ToUpdateStudentRequest(result, studentViewModel.Student.Id, _currentGroup!.Id));
 
             StudentModelMapper.UpdateModelFromDialogResult(result, studentViewModel.Student);
         }
@@ -114,16 +96,16 @@ public class StudentsViewModel : ObservableObject
 
         AddStudentRequest request = Mapper.ToAddStudentRequest(result, CurrentGroup.Id);
 
-        StudentDTO studentDto = _addStudentUseCase.Execute(request);
+        StudentDTO studentDto = _applicationService.Add(request);
 
         StudentModel studentModel = StudentModelMapper.ToModel(studentDto);
-        
+
         AddNewStudentViewModel(studentModel);
     }
 
     private void PickRandomStudent()
     {
-        int? pickedId = _pickStudentUseCase.Execute(Mapper.ToPickStudentRequest(_students));
+        int? pickedId = _applicationService.Pick(Mapper.ToPickStudentRequest(_students));
 
         if (pickedId is not null)
         {

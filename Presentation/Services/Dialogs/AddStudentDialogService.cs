@@ -1,7 +1,7 @@
 ﻿using Presentation.Interfaces;
 using Presentation.Services.Dialogs.Abstractions;
+using Presentation.Services.Dialogs.DTO;
 using Presentation.Services.Dialogs.Interfaces;
-using Presentation.Services.DTO;
 using Presentation.Services.Factories;
 
 namespace Presentation.Services.Dialogs;

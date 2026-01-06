@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Domain.Entities;
 using Presentation.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -10,7 +9,7 @@ namespace Presentation.ViewModels.Students;
 public class StudentItemViewModel : INotifyPropertyChanged
 {
     private readonly StudentModel _student;
-    
+
     private bool _isExcluded;
     public bool IsExcluded
     {
@@ -36,8 +35,6 @@ public class StudentItemViewModel : INotifyPropertyChanged
         UpdateStudentCommand = new RelayCommand(UpdateStudent);
         ToggleExludedCommand = new RelayCommand(ToggleExluded);
     }
-
-    public StudentItemViewModel(Student student) : this(new StudentModel(student)) { }
 
     public void Exclude() => IsExcluded = true;
 

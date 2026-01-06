@@ -2,7 +2,6 @@
 using Application.Services;
 using Application.Services.Interfaces;
 using Application.UseCases;
-using Application.UseCases.DTO;
 using Application.UseCases.Interfaces;
 using Infrastructure;
 using Infrastructure.Repositories;
@@ -59,6 +58,8 @@ public partial class App : System.Windows.Application
 
                         services.AddScoped<IStudentPickerService, StudentPickerService>();
                         services.AddScoped<IRandomProvider, RandomChoiceProvider>();
+
+                        services.AddScoped<IStudentApplicationService, StudentApplicationService>();
                         #endregion
 
                         #region DialogServices
@@ -106,11 +107,5 @@ public partial class App : System.Windows.Application
         MainWindow window = _host.Services.GetRequiredService<MainWindow>();
         window.Show();
         base.OnStartup(e);
-    }
-    protected override async void OnExit(ExitEventArgs e)
-    {
-        await _host.StopAsync();
-        _host.Dispose();
-        base.OnExit(e);
     }
 }

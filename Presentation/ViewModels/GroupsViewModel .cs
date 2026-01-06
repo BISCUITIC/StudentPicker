@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Domain.Entities;
 using Presentation.Models;
+using Presentation.Services.Dialogs.DTO;
 using Presentation.Services.Dialogs.Interfaces;
-using Presentation.Services.DTO;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

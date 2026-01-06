@@ -1,5 +1,5 @@
 ﻿using Presentation.Interfaces;
-using Presentation.Services.DTO;
+using Presentation.Services.Dialogs.DTO;
 using Presentation.ViewModels.Dialogs;
 
 namespace Presentation.Services.Dialogs.Abstractions;

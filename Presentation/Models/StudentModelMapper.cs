@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.DTO;
 using Domain.Entities;
-using Presentation.Services.DTO;
+using Presentation.Services.Dialogs.DTO;
 
 namespace Presentation.Models;
 

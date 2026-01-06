@@ -1,4 +1,4 @@
-﻿using Presentation.Services.DTO;
+﻿using Presentation.Services.Dialogs.DTO;
 
 namespace Presentation.Services.Dialogs.Interfaces;
 

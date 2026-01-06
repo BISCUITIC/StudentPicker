@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.DTO;
 using Presentation.Models;
-using Presentation.Services.DTO;
+using Presentation.Services.Dialogs.DTO;
 using Presentation.ViewModels.Students;
 
 namespace Presentation.Services;
