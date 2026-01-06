@@ -3,7 +3,7 @@
 public class GroupDialogViewModel : DialogViewModel
 {
     public int Number { get; set; }
-    public string? Letter { get; set; }
+    public string Letter { get; set; } = null!;
 
     protected override bool CanSave()
     {

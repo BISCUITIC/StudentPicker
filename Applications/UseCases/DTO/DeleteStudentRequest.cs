@@ -1,6 +1,5 @@
 ﻿namespace Application.UseCases.DTO;
 
-public class DeleteStudentRequest
-{
-    public int Id { get; init; }
-}
+public sealed record class DeleteStudentRequest(
+    int Id
+);

@@ -1,7 +1,6 @@
 ﻿namespace Presentation.Services.Dialogs.DTO;
 
-public class StudentDialogResult
-{
-    public string Name { get; init; } = "";
-    public string SecondName { get; init; } = "";
-}
+public sealed record class StudentDialogResult(
+    string Name,
+    string SecondName
+);

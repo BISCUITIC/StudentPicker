@@ -1,12 +1,11 @@
 ﻿namespace Application.UseCases.DTO;
 
-public class PickData
-{
-    public int Id { get; init; }
-    public bool IsExcluded { get; init; }
-}
+public sealed record class StudentPickInfo(
+    int Id,
+    bool IsExcluded
+);
 
-public class PickStudentRequest
-{
-    public IReadOnlyCollection<PickData> Data { get; init; }
-}
+public sealed record class PickStudentRequest(
+    IReadOnlyCollection<StudentPickInfo> Items
+);
+

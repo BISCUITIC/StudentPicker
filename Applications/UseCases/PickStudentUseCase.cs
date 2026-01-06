@@ -16,7 +16,7 @@ public class PickStudentUseCase : IPickStudentUseCase
 
     public int? Execute(PickStudentRequest pickRequest)
     {
-        List<int> availableIdes = pickRequest.Data
+        List<int> availableIdes = pickRequest.Items
                                              .Where(data => !data.IsExcluded)
                                              .Select(data => data.Id)
                                              .ToList();

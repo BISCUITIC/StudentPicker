@@ -30,24 +30,4 @@ public class Student
 
         GroupId = groupId;
     }
-
-    public Student(int id, string name, string secondName)
-    {
-        Id = id;
-        Name = name;
-        SecondName = secondName;
-        FullName = Name + " " + SecondName;
-    }
-
-    public void UpdateSecondName(string secondName)
-    {        
-        SecondName = secondName;
-        FullName = Name + " " + SecondName;
-    }
-
-    public void UpdateName(string name)
-    {
-        Name = name;
-        FullName = Name + " " + SecondName;
-    }
 }

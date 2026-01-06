@@ -2,8 +2,8 @@
 
 public class StudentDialogViewModel : DialogViewModel
 {
-    public string? Name { get; set; }
-    public string? SecondName { get; set; }
+    public string Name { get; set; } = null!;
+    public string SecondName { get; set; } = null!;
 
     protected override bool CanSave()
     {
