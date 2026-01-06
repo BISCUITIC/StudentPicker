@@ -1,5 +1,4 @@
 ﻿using Application.UseCases.DTO;
-using Domain.Entities;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -8,8 +7,8 @@ namespace Presentation.Models;
 public class StudentModel : INotifyPropertyChanged
 {
     private readonly int _id;
-    private string _name = null!;
-    private string _secondName = null!;
+    private string _name = string.Empty;
+    private string _secondName = string.Empty;
 
     public int Id
     {

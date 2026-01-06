@@ -2,20 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
-    <Style TargetType="StackPanel" x:Key="StudentPanelStyle">
+    <Style TargetType="Border" x:Key="StudentPanelBorderStyle">
         <Style.Setters>
-            <Setter Property="Background" Value="#FF313131" />
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
         </Style.Setters>
 
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsExcluded}" Value="False">
-                <Setter Property="Background" Value="Red"/>
+                <Setter Property="Background" Value="#FF313131"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=IsExcluded}" Value="True">
-                <Setter Property="Background" Value="Blue"/>
+                <Setter Property="Background" Value="#FFB20000"/>
             </DataTrigger>
-            
         </Style.Triggers>
     </Style>
 
@@ -29,17 +30,8 @@
     </Style>
 
     <DataTemplate x:Key="StudentItemTemplate">
-        <StackPanel Orientation="Horizontal" 
-                    Style="{StaticResource ResourceKey=StudentPanelStyle}"                    
-                    Tag="{Binding ElementName=CoreWindow}">
-
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding Path=DataContext.StudentsViewModel.ResetExcludedCommand,
-                                                             RelativeSource={RelativeSource AncestorType=Window}}"
-                                           CommandParameter="{Binding}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
+        <Border Name="StudenItemPanelBorder"
+                Style="{StaticResource StudentPanelBorderStyle}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -47,35 +39,30 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                       Text="{Binding Path=Student.Name}">
-            </TextBlock>
-
-            <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                       Text="{Binding Path=Student.SecondName}">
-            </TextBlock>
-
-            <StackPanel.ContextMenu>
+            <Border.ContextMenu>
                 <ContextMenu>
-                    <!-- 
-                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.DeleteStudentCommand,
-                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
-                              CommandParameter="{Binding}"
-                              Header="Delete"/>
-                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.StudentsViewModel.UpdateStudentCommand,
-                                        RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
-                              CommandParameter="{Binding}"
-                              Header="Edit"/>
-                    -->
-
                     <MenuItem Command="{Binding DeleteStudentCommand}"
-                              Header="Delete"/>
+                  Header="Delete"/>
                     <MenuItem Command="{Binding UpdateStudentCommand}"
-                              Header="Edit"/>
-                    
+                  Header="Edit"/>
                 </ContextMenu>
-            </StackPanel.ContextMenu>
+            </Border.ContextMenu>
 
-        </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        Background="{Binding ElementName=StudentItemTemplate, Path=Background}"                                
+                        Tag="{Binding ElementName=CoreWindow}">
+                
+                <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
+                           Text="{Binding Path=Student.Name}"
+                           Background="{Binding ElementName=StudentItemTemplate, Path=Background}" >
+                </TextBlock>
+
+                <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
+                           Text="{Binding Path=Student.SecondName}"
+                           Background="{Binding ElementName=StudentItemTemplate, Path=Background}" >
+                </TextBlock>
+                
+            </StackPanel>
+        </Border>
     </DataTemplate>
 </ResourceDictionary>

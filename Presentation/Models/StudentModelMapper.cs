@@ -17,7 +17,7 @@ public static class StudentModelMapper
         model.Number = result.Number;
         model.Letter = result.Letter;
     }
-    
+
     public static StudentModel ToModel(StudentDTO studentDTO)
     {
         return new StudentModel(studentDTO);
