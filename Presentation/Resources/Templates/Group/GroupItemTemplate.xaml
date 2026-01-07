@@ -3,33 +3,28 @@
     
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Resources/Styles/Buttons/GroupButtonStyle.xaml"/>
-    </ResourceDictionary.MergedDictionaries>              
-    
+    </ResourceDictionary.MergedDictionaries>
+
     <DataTemplate x:Key="GroupItemTemplate">
         <Button Style="{StaticResource ResourceKey=GroupButtonStyle}"
                 Command="{Binding DataContext.StudentsViewModel.LoadStudentsCommand,
                                   RelativeSource={RelativeSource AncestorType=Window}}"
-                CommandParameter="{Binding}"
-                Tag="{Binding ElementName=CoreWindow}">
+                CommandParameter="{Binding Path=Group}">
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Path=Number}"/>
-                <TextBlock Text="{Binding Path=Letter}"/>
+                <TextBlock Text="{Binding Path=Group.Number}"/>
+                <TextBlock Text="{Binding Path=Group.Letter}"/>
             </StackPanel>
-
+            
             <Button.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.GroupsViewModel.DeleteGroupCommand,
-                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
-                              CommandParameter="{Binding}"
+                    <MenuItem Command="{Binding DeleteGroupCommand}"
                               Header="Delete"/>
-                    <MenuItem Command="{Binding PlacementTarget.Tag.DataContext.GroupsViewModel.UpdateGroupCommand,
-                                                RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
-                              CommandParameter="{Binding}"
+                    <MenuItem Command="{Binding UpdateGroupCommand}" 
                               Header="Edit"/>
                 </ContextMenu>
             </Button.ContextMenu>
-
+            
         </Button>
                         
     </DataTemplate>

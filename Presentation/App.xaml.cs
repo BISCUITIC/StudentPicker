@@ -16,6 +16,7 @@ using Presentation.Services.Dialogs.Interfaces;
 using Presentation.Services.Factories;
 using Presentation.ViewModels;
 using Presentation.ViewModels.Dialogs;
+using Presentation.ViewModels.Groups;
 using Presentation.ViewModels.Students;
 using Presentation.Views;
 using System.IO;

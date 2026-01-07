@@ -78,7 +78,7 @@ public class StudentsViewModel
 
         if (result is not null)
         {
-            _applicationService.Update(Mapper.ToUpdateStudentRequest(result, studentViewModel.Student.Id, _currentGroup!.Id));
+            _applicationService.Update(Mapper.ToUpdateStudentRequest(result, studentViewModel.Student.Id));
 
             StudentModelMapper.UpdateModelFromDialogResult(result, studentViewModel.Student);
         }

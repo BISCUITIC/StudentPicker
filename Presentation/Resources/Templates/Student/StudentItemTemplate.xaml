@@ -42,9 +42,9 @@
             <Border.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding DeleteStudentCommand}"
-                  Header="Delete"/>
+                              Header="Delete"/>
                     <MenuItem Command="{Binding UpdateStudentCommand}"
-                  Header="Edit"/>
+                              Header="Edit"/>
                 </ContextMenu>
             </Border.ContextMenu>
 

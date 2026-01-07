@@ -28,7 +28,7 @@
             <ItemsControl x:Name="GroupList"
                           Background="#FF1F1F1F"
                           ItemsSource="{Binding GroupsViewModel.Groups}"
-                           ItemsPanel="{StaticResource GroupItemPanel}"
+                          ItemsPanel="{StaticResource GroupItemPanel}"
                           ItemTemplate="{StaticResource GroupItemTemplate}"/>
             <Button x:Name="AddGroupButton"
                     Content="+"
@@ -46,11 +46,6 @@
                     Content="+"
                     Style="{StaticResource AddButtonStyle}"
                     Command="{Binding StudentsViewModel.AddStudentCommand}"/>
-            <TextBlock x:Name="Statebar" DockPanel.Dock="Left"
-                       Text="{Binding Path=StudentsViewModel.State,
-                                      Mode=OneWay,
-                                      UpdateSourceTrigger=PropertyChanged}" 
-                       Foreground="White"/>
         </DockPanel>
         <DockPanel Grid.Row="3">
             <Button x:Name="RandomButton" 

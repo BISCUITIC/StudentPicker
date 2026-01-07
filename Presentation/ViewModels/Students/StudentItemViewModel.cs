@@ -9,6 +9,7 @@ namespace Presentation.ViewModels.Students;
 public class StudentItemViewModel : INotifyPropertyChanged
 {
     private readonly StudentModel _student;
+    public StudentModel Student { get => _student; }
 
     private bool _isExcluded;
     public bool IsExcluded
@@ -16,8 +17,6 @@ public class StudentItemViewModel : INotifyPropertyChanged
         get => _isExcluded;
         private set { _isExcluded = value; OnPropertyChanged(); }
     }
-
-    public StudentModel Student { get => _student; }
 
     public ICommand DeleteStudentCommand { get; }
     public ICommand UpdateStudentCommand { get; }
