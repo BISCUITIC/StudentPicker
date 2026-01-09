@@ -1,7 +1,7 @@
-﻿using Application.UseCases.Student.DTO;
+﻿using Application.UseCases.Students.DTO;
 using Domain.Entities;
 
-namespace Application.UseCases.Student.Interfaces;
+namespace Application.UseCases.Students.Interfaces;
 
 public interface IAddStudentUseCase
 {

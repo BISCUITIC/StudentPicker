@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.Student.DTO;
+﻿namespace Application.UseCases.Students.DTO;
 
 public sealed record class UpdateStudentRequest(
     int Id,

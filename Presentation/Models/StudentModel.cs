@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Student.DTO;
+﻿using Application.UseCases.Students.DTO;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

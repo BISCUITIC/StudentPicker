@@ -1,9 +1,9 @@
 ﻿using Application.Services.Interfaces;
-using Application.UseCases.Student.DTO;
-using Application.UseCases.Student.Interfaces;
+using Application.UseCases.Students.DTO;
+using Application.UseCases.Students.Interfaces;
 using Domain.Entities;
 
-namespace Application.UseCases.Student;
+namespace Application.UseCases.Students;
 
 public class PickStudentUseCase : IPickStudentUseCase
 {

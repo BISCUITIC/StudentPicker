@@ -1,6 +1,6 @@
 ﻿using Application.Services.Interfaces;
-using Application.UseCases.Student.DTO;
-using Application.UseCases.Student.Interfaces;
+using Application.UseCases.Students.DTO;
+using Application.UseCases.Students.Interfaces;
 
 namespace Application.Services;
 

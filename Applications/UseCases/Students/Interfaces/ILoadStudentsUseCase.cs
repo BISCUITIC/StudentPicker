@@ -1,6 +1,6 @@
-﻿using Application.UseCases.Student.DTO;
+﻿using Application.UseCases.Students.DTO;
 
-namespace Application.UseCases.Student.Interfaces;
+namespace Application.UseCases.Students.Interfaces;
 
 public interface ILoadStudentsUseCase
 {

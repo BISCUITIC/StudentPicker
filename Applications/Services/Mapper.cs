@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Student.DTO;
+﻿using Application.UseCases.Students.DTO;
 using Domain.Entities;
 
 namespace Application.Services;

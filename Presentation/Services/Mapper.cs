@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Student.DTO;
+﻿using Application.UseCases.Students.DTO;
 using Presentation.Services.Dialogs.DTO;
 using Presentation.ViewModels.Students;
 
