@@ -1,7 +1,5 @@
 ﻿using Application.UseCases.Groups.DTO;
-using Application.UseCases.Students.DTO;
 using Presentation.Services.Dialogs.DTO;
-using Presentation.ViewModels.Students;
 
 namespace Presentation.Models;
 

@@ -1,5 +1,4 @@
 ﻿using Application.UseCases.Students.DTO;
-using Domain.Entities;
 
 namespace Application.UseCases.Students.Interfaces;
 

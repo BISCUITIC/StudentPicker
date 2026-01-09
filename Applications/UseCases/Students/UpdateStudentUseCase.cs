@@ -17,7 +17,7 @@ public class UpdateStudentUseCase : IUpdateStudentUseCase
     public void Execute(UpdateStudentRequest updateRequest)
     {
         Student student = _studentService.GetStudent(updateRequest.Id);
-        
+
         student.UpdateName(updateRequest.Name);
         student.UpdateSecondName(updateRequest.SecondName);
 

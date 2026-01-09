@@ -34,5 +34,4 @@ public class GroupApplicationService : IGroupApplicationService
 
     public void Update(UpdateGroupRequest request)
     => _updateGroupUseCase.Execute(request);
-
 }

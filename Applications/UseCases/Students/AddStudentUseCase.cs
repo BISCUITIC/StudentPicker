@@ -19,6 +19,6 @@ public class AddStudentUseCase : IAddStudentUseCase
     {
         Student student = Mapper.ToStudent(addRequest);
         _studentService.AddStudent(student);
-        return Mapper.ToStudentDTO(student);        
+        return Mapper.ToStudentDTO(student);
     }
 }

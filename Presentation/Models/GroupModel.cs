@@ -1,9 +1,6 @@
 ﻿using Application.UseCases.Groups.DTO;
-using Application.UseCases.Students.DTO;
-using Domain.Entities;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 
 namespace Presentation.Models;
 
@@ -13,10 +10,10 @@ public class GroupModel : INotifyPropertyChanged
     private int _number;
     private char _letter;
 
-    public int Id 
-    { 
-        get => _id; 
-        init => _id = value; 
+    public int Id
+    {
+        get => _id;
+        init => _id = value;
     }
     public int Number
     {

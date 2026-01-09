@@ -1,7 +1,6 @@
 ﻿using Application.Services.Interfaces;
 using Application.UseCases.Students.DTO;
 using Application.UseCases.Students.Interfaces;
-using Domain.Entities;
 
 namespace Application.UseCases.Students;
 

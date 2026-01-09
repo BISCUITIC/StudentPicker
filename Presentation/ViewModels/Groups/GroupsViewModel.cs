@@ -1,7 +1,5 @@
-﻿using Application.Services.Facades;
-using Application.Services.Interfaces.Facades;
+﻿using Application.Services.Interfaces.Facades;
 using Application.UseCases.Groups.DTO;
-using Application.UseCases.Groups.Interfaces;
 using CommunityToolkit.Mvvm.Input;
 using Presentation.Models;
 using Presentation.Services.Dialogs.DTO;
@@ -13,10 +11,6 @@ namespace Presentation.ViewModels.Groups;
 
 public class GroupsViewModel
 {
-    //private readonly ILoadGroupsUseCase _loadGroupsUseCase;
-    //private readonly IAddGroupUseCase _addGroupUseCase;
-    //private readonly IDeleteGroupUseCase _deleteGroupUseCase;
-    //private readonly IUpdateGroupUseCase _updateGroupUseCase;
     private readonly IGroupApplicationService _groupApplicationService;
 
     private readonly IAddGroupDialogService _addDialogService;
@@ -33,11 +27,6 @@ public class GroupsViewModel
                            IAddGroupDialogService addGroupDialogService,
                            IUpdateGroupDialogService updateGroupDialogService)
     {
-        //_loadGroupsUseCase = loadGroupsUseCase;
-        //_addGroupUseCase = addGroupUseCase;
-        //_deleteGroupUseCase = deleteGroupUseCase;
-        //_updateGroupUseCase = updateGroupUseCase;
-
         _groupApplicationService = groupApplicationService;
 
         _addDialogService = addGroupDialogService;
