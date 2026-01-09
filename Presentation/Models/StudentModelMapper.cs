@@ -1,4 +1,4 @@
-﻿using Application.UseCases.DTO;
+﻿using Application.UseCases.Student.DTO;
 using Domain.Entities;
 using Presentation.Services.Dialogs.DTO;
 

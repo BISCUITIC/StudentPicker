@@ -1,8 +1,8 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Application.Services.Interfaces;
-using Application.UseCases;
-using Application.UseCases.Interfaces;
+using Application.UseCases.Student;
+using Application.UseCases.Student.Interfaces;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

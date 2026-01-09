@@ -1,5 +1,5 @@
 ﻿using Application.Services.Interfaces;
-using Application.UseCases.DTO;
+using Application.UseCases.Student.DTO;
 using CommunityToolkit.Mvvm.Input;
 using Presentation.Models;
 using Presentation.Services;

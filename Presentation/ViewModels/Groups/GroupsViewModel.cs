@@ -22,8 +22,6 @@ public class GroupsViewModel
     public ObservableCollection<GroupItemViewModel> Groups { get => _groups; }
 
     public ICommand LoadGroupCommand { get; }
-    //public ICommand DeleteGroupCommand { get; }
-    //public ICommand UpdateGroupCommand { get; }
     public ICommand AddGroupCommand { get; }
 
     public GroupsViewModel(IGroupService groupProvider,
@@ -37,8 +35,6 @@ public class GroupsViewModel
         _groups = new ObservableCollection<GroupItemViewModel>();
 
         LoadGroupCommand = new RelayCommand(LoadGroups);
-        //DeleteGroupCommand = new RelayCommand<GroupModel>(DeleteGroup);
-        //UpdateGroupCommand = new RelayCommand<GroupModel>(UpdateGroup);
         AddGroupCommand = new RelayCommand(AddGroup);
     }
 
@@ -49,7 +45,6 @@ public class GroupsViewModel
         {            
             AddNewGroupViewModel(new GroupModel(group));
         }
-        MessageBox.Show("Loaded");
     }
 
     private void DeleteGroup(GroupItemViewModel groupModel)

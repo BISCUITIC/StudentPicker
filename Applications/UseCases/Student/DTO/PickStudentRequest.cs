@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.DTO;
+﻿namespace Application.UseCases.Student.DTO;
 
 public sealed record class StudentPickInfo(
     int Id,
