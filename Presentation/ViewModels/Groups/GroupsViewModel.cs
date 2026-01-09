@@ -1,7 +1,6 @@
 ﻿using Application.UseCases.Groups.DTO;
 using Application.UseCases.Groups.Interfaces;
 using CommunityToolkit.Mvvm.Input;
-using Domain.Entities;
 using Presentation.Models;
 using Presentation.Services.Dialogs.DTO;
 using Presentation.Services.Dialogs.Interfaces;
@@ -59,36 +58,37 @@ public class GroupsViewModel
         }
     }
 
-    private void DeleteGroup(GroupItemViewModel groupModel)
+    private void DeleteGroup(GroupItemViewModel groupViewModel)
     {
-        _deleteGroupUseCase.Execute(GroupRequestMapper.ToDeleteGroupRequest(groupModel.Group.Id));
-        _groups.Remove(groupModel);
+        DeleteGroupRequest request = GroupRequestMapper.ToDeleteGroupRequest(groupViewModel.Group.Id)
+        _deleteGroupUseCase.Execute(request);
+        _groups.Remove(groupViewModel);
     }
 
-    private void UpdateGroup(GroupItemViewModel groupModel)
+    private void UpdateGroup(GroupItemViewModel groupViewModel)
     {
-        GroupDialogResult? result = _updateDialogService.ShowUpdateGroupDialog(groupModel.Group);
+        GroupDialogResult? result = _updateDialogService.ShowUpdateGroupDialog(groupViewModel.Group);
 
-        if (result is not null)
-        {
-            _updateGroupUseCase.Execute(GroupRequestMapper.ToUpdateGroupRequest(result, groupModel.Group.Id));
-            StudentModelMapper.UpdateModelFromDialogResult(result, groupModel.Group);
-        }
+        if (result is null)
+            return;
+
+        UpdateGroupRequest request = GroupRequestMapper.ToUpdateGroupRequest(result, groupViewModel.Group.Id);
+        _updateGroupUseCase.Execute(request);
+        GroupModelMapper.UpdateModelFromDialogResult(result, groupViewModel.Group);        
     }
+
     private void AddGroup()
     {
         GroupDialogResult? result = _addDialogService.ShowAddGroupDialog();
 
-        if (result is not null)
-        {
-            Group group = StudentModelMapper.ToDomain(result);
+        if (result is null)
+            return;
 
-            AddGroupRequest groupRequest = GroupRequestMapper.ToAddGroupRequest(result);
-            GroupDTO groupDTO = _addGroupUseCase.Execute(groupRequest);
-            GroupModel groupModel = GroupModelMapper.ToModel(groupDTO);
+        AddGroupRequest request = GroupRequestMapper.ToAddGroupRequest(result);
+        GroupDTO groupDTO = _addGroupUseCase.Execute(request);
+        GroupModel groupModel = GroupModelMapper.ToModel(groupDTO);
 
-            AddNewGroupViewModel(groupModel);
-        }
+        AddNewGroupViewModel(groupModel);
     }
 
     private void AddNewGroupViewModel(GroupModel groupModel)

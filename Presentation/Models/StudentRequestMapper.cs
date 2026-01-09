@@ -4,7 +4,7 @@ using Presentation.ViewModels.Students;
 
 namespace Presentation.Models;
 
-internal static class Mapper
+internal static class StudentRequestMapper
 {
     public static UpdateStudentRequest ToUpdateStudentRequest(StudentDialogResult dialogResult,
                                                               int studentId)

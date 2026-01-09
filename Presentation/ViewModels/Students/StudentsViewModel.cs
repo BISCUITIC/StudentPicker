@@ -50,7 +50,7 @@ public class StudentsViewModel
 
     private void LoadStudents(GroupModel? groupModel)
     {
-        if (groupModel == null)
+        if (groupModel is null)
             return;
 
         CurrentGroup = groupModel;
@@ -65,22 +65,23 @@ public class StudentsViewModel
         }
     }
 
-    private void DeleteStudent(StudentItemViewModel studentModel)
+    private void DeleteStudent(StudentItemViewModel studentViewModel)
     {
-        _applicationService.Delete(Mapper.ToDeleteStudentRequest(studentModel.Student.Id));
-        _students.Remove(studentModel);
+        DeleteStudentRequest request = StudentRequestMapper.ToDeleteStudentRequest(studentViewModel.Student.Id)
+        _applicationService.Delete(request);
+        _students.Remove(studentViewModel);
     }
 
     private void UpdateStudent(StudentItemViewModel studentViewModel)
     {
         StudentDialogResult? result = _updateDialogService.ShowUpdateStudentDialog(studentViewModel.Student);
 
-        if (result is not null)
-        {
-            _applicationService.Update(Mapper.ToUpdateStudentRequest(result, studentViewModel.Student.Id));
+        if (result is null)
+            return;
 
-            StudentModelMapper.UpdateModelFromDialogResult(result, studentViewModel.Student);
-        }
+        UpdateStudentRequest request = StudentRequestMapper.ToUpdateStudentRequest(result, studentViewModel.Student.Id);
+        _applicationService.Update(request);
+        StudentModelMapper.UpdateModelFromDialogResult(result, studentViewModel.Student);        
     }
 
     private void AddStudent()
@@ -93,26 +94,25 @@ public class StudentsViewModel
         if (result is null)
             return;
 
-        AddStudentRequest request = Mapper.ToAddStudentRequest(result, CurrentGroup.Id);
-
-        StudentDTO studentDto = _applicationService.Add(request);
-
-        StudentModel studentModel = StudentModelMapper.ToModel(studentDto);
+        AddStudentRequest request = StudentRequestMapper.ToAddStudentRequest(result, CurrentGroup.Id);
+        StudentDTO studentDTO = _applicationService.Add(request);
+        StudentModel studentModel = StudentModelMapper.ToModel(studentDTO);
 
         AddNewStudentViewModel(studentModel);
     }
 
     private void PickRandomStudent()
     {
-        int? pickedId = _applicationService.Pick(Mapper.ToPickStudentRequest(_students));
+        PickStudentRequest request = StudentRequestMapper.ToPickStudentRequest(_students)
+        int? pickedId = _applicationService.Pick(request);
 
-        if (pickedId is not null)
-        {
-            StudentItemViewModel? pickedStudent = _students.FirstOrDefault(studentModel => studentModel.Student.Id == pickedId);
+        if (pickedId is null)
+            return;
 
-            if (pickedStudent is not null)
-                pickedStudent.Exclude();
-        }
+        StudentItemViewModel? pickedStudent = _students.FirstOrDefault(studentModel => studentModel.Student.Id == pickedId);
+
+        if (pickedStudent is not null)
+            pickedStudent.Exclude();        
     }
 
     private void AddNewStudentViewModel(StudentModel student)
