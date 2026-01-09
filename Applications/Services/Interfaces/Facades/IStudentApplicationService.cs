@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.Students.DTO;
 
-namespace Application.Services.Interfaces;
+namespace Application.Services.Interfaces.Facades;
 
 public interface IStudentApplicationService
 {

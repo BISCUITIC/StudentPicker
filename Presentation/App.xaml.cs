@@ -1,6 +1,8 @@
 ﻿using Application.Interfaces;
 using Application.Services;
+using Application.Services.Facades;
 using Application.Services.Interfaces;
+using Application.Services.Interfaces.Facades;
 using Application.UseCases.Groups;
 using Application.UseCases.Groups.Interfaces;
 using Application.UseCases.Students;
@@ -61,7 +63,10 @@ public partial class App : System.Windows.Application
 
                         services.AddScoped<IStudentPickerService, StudentPickerService>();
                         services.AddScoped<IRandomProvider, RandomChoiceProvider>();
+                        #endregion
 
+                        #region Facades
+                        services.AddScoped<IGroupApplicationService, GroupApplicationService>();
                         services.AddScoped<IStudentApplicationService, StudentApplicationService>();
                         #endregion
 

@@ -1,4 +1,6 @@
-﻿using Application.UseCases.Groups.DTO;
+﻿using Application.Services.Facades;
+using Application.Services.Interfaces.Facades;
+using Application.UseCases.Groups.DTO;
 using Application.UseCases.Groups.Interfaces;
 using CommunityToolkit.Mvvm.Input;
 using Presentation.Models;
@@ -11,10 +13,11 @@ namespace Presentation.ViewModels.Groups;
 
 public class GroupsViewModel
 {
-    private readonly ILoadGroupsUseCase _loadGroupsUseCase;
-    private readonly IAddGroupUseCase _addGroupUseCase;
-    private readonly IDeleteGroupUseCase _deleteGroupUseCase;
-    private readonly IUpdateGroupUseCase _updateGroupUseCase;
+    //private readonly ILoadGroupsUseCase _loadGroupsUseCase;
+    //private readonly IAddGroupUseCase _addGroupUseCase;
+    //private readonly IDeleteGroupUseCase _deleteGroupUseCase;
+    //private readonly IUpdateGroupUseCase _updateGroupUseCase;
+    private readonly IGroupApplicationService _groupApplicationService;
 
     private readonly IAddGroupDialogService _addDialogService;
     private readonly IUpdateGroupDialogService _updateDialogService;
@@ -26,17 +29,16 @@ public class GroupsViewModel
     public ICommand LoadGroupCommand { get; }
     public ICommand AddGroupCommand { get; }
 
-    public GroupsViewModel(ILoadGroupsUseCase loadGroupsUseCase,
-                           IAddGroupUseCase addGroupUseCase,
-                           IDeleteGroupUseCase deleteGroupUseCase,
-                           IUpdateGroupUseCase updateGroupUseCase,
+    public GroupsViewModel(IGroupApplicationService groupApplicationService,
                            IAddGroupDialogService addGroupDialogService,
                            IUpdateGroupDialogService updateGroupDialogService)
     {
-        _loadGroupsUseCase = loadGroupsUseCase;
-        _addGroupUseCase = addGroupUseCase;
-        _deleteGroupUseCase = deleteGroupUseCase;
-        _updateGroupUseCase = updateGroupUseCase;
+        //_loadGroupsUseCase = loadGroupsUseCase;
+        //_addGroupUseCase = addGroupUseCase;
+        //_deleteGroupUseCase = deleteGroupUseCase;
+        //_updateGroupUseCase = updateGroupUseCase;
+
+        _groupApplicationService = groupApplicationService;
 
         _addDialogService = addGroupDialogService;
         _updateDialogService = updateGroupDialogService;
@@ -49,7 +51,7 @@ public class GroupsViewModel
 
     private void LoadGroups()
     {
-        IReadOnlyCollection<GroupDTO> groupsDTO = _loadGroupsUseCase.Execute();
+        IReadOnlyCollection<GroupDTO> groupsDTO = _groupApplicationService.Load();
 
         foreach (GroupDTO grouptDTO in groupsDTO)
         {
@@ -61,7 +63,7 @@ public class GroupsViewModel
     private void DeleteGroup(GroupItemViewModel groupViewModel)
     {
         DeleteGroupRequest request = GroupRequestMapper.ToDeleteGroupRequest(groupViewModel.Group.Id);
-        _deleteGroupUseCase.Execute(request);
+        _groupApplicationService.Delete(request);
         _groups.Remove(groupViewModel);
     }
 
@@ -73,8 +75,8 @@ public class GroupsViewModel
             return;
 
         UpdateGroupRequest request = GroupRequestMapper.ToUpdateGroupRequest(result, groupViewModel.Group.Id);
-        _updateGroupUseCase.Execute(request);
-        GroupModelMapper.UpdateModelFromDialogResult(result, groupViewModel.Group);        
+        _groupApplicationService.Update(request);
+        GroupModelMapper.UpdateModelFromDialogResult(result, groupViewModel.Group);
     }
 
     private void AddGroup()
@@ -85,7 +87,7 @@ public class GroupsViewModel
             return;
 
         AddGroupRequest request = GroupRequestMapper.ToAddGroupRequest(result);
-        GroupDTO groupDTO = _addGroupUseCase.Execute(request);
+        GroupDTO groupDTO = _groupApplicationService.Add(request);
         GroupModel groupModel = GroupModelMapper.ToModel(groupDTO);
 
         AddNewGroupViewModel(groupModel);

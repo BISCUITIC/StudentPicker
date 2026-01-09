@@ -1,29 +1,30 @@
 ﻿using Application.Services.Interfaces;
+using Application.Services.Interfaces.Facades;
 using Application.UseCases.Students.DTO;
 using Application.UseCases.Students.Interfaces;
 
-namespace Application.Services;
+namespace Application.Services.Facades;
 
 public class StudentApplicationService : IStudentApplicationService
 {
     private readonly ILoadStudentsUseCase _loadStudentsUseCase;
-    private readonly IUpdateStudentUseCase _updateStudentUseCase;
-    private readonly IDeleteStudentUseCase _deleteStudentUseCase;
     private readonly IAddStudentUseCase _addStudentUseCase;
+    private readonly IDeleteStudentUseCase _deleteStudentUseCase;
+    private readonly IUpdateStudentUseCase _updateStudentUseCase;
     private readonly IPickStudentUseCase _pickStudentUseCase;
 
     public StudentApplicationService(ILoadStudentsUseCase loadStudentsUseCase,
-                                     IUpdateStudentUseCase updateStudentUseCase,
-                                     IDeleteStudentUseCase deleteStudentUseCase,
                                      IAddStudentUseCase addStudentUseCase,
+                                     IDeleteStudentUseCase deleteStudentUseCase,
+                                     IUpdateStudentUseCase updateStudentUseCase,
                                      IPickStudentUseCase pickStudentUseCase,
                                      IStudentPickerService studentPickerService)
     {
 
         _loadStudentsUseCase = loadStudentsUseCase;
-        _updateStudentUseCase = updateStudentUseCase;
-        _deleteStudentUseCase = deleteStudentUseCase;
         _addStudentUseCase = addStudentUseCase;
+        _deleteStudentUseCase = deleteStudentUseCase;
+        _updateStudentUseCase = updateStudentUseCase;
         _pickStudentUseCase = pickStudentUseCase;
     }
 
