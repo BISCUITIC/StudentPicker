@@ -20,4 +20,14 @@ public class Group
         Number = number;
         Letter = letter;
     }
+    public void UpdateNumber(int number)
+    {
+        Number = number;
+    }
+
+    public void UpdateLetter(char letter)
+    {
+        Letter = letter;
+    }
+
 }

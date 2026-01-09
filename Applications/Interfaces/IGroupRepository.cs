@@ -8,5 +8,5 @@ public interface IGroupRepository
     Group? GetById(int groupId);
     void Add(Group student);
     void Remove(int id);
-    void Update(Group student);
+    void SaveChanges();
 }

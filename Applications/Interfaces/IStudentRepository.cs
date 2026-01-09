@@ -7,7 +7,6 @@ public interface IStudentRepository
     IReadOnlyCollection<Student> GetAllByGroupId(int groupId);
     Student? GetById(int id);
     void Add(Student student);
-    void Remove(int id);
-    //void Update(Student student);
+    void Remove(int id);    
     void SaveChanges();
 }

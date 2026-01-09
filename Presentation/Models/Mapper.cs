@@ -2,7 +2,7 @@
 using Presentation.Services.Dialogs.DTO;
 using Presentation.ViewModels.Students;
 
-namespace Presentation.Services;
+namespace Presentation.Models;
 
 internal static class Mapper
 {

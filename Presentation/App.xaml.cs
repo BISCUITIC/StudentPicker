@@ -1,6 +1,8 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Application.Services.Interfaces;
+using Application.UseCases.Groups;
+using Application.UseCases.Groups.Interfaces;
 using Application.UseCases.Students;
 using Application.UseCases.Students.Interfaces;
 using Infrastructure;
@@ -83,6 +85,11 @@ public partial class App : System.Windows.Application
                         services.AddTransient<IDeleteStudentUseCase, DeleteStudentUseCase>();
                         services.AddTransient<IAddStudentUseCase, AddStudentUseCase>();
                         services.AddTransient<IPickStudentUseCase, PickStudentUseCase>();
+
+                        services.AddTransient<ILoadGroupsUseCase, LoadGroupUseCase>();
+                        services.AddTransient<IUpdateGroupUseCase, UpdateGroupUseCase>();
+                        services.AddTransient<IAddGroupUseCase, AddGroupUseCase>();
+                        services.AddTransient<IDeleteGroupUseCase, DeleteGroupUseCase>();
                         #endregion
 
                         #region ViewModels

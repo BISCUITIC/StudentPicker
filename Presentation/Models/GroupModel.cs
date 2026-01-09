@@ -1,6 +1,9 @@
-﻿using Domain.Entities;
+﻿using Application.UseCases.Groups.DTO;
+using Application.UseCases.Students.DTO;
+using Domain.Entities;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace Presentation.Models;
 
@@ -10,7 +13,11 @@ public class GroupModel : INotifyPropertyChanged
     private int _number;
     private char _letter;
 
-    public int Id { get => _id; }
+    public int Id 
+    { 
+        get => _id; 
+        init => _id = value; 
+    }
     public int Number
     {
         get => _number;
@@ -22,12 +29,13 @@ public class GroupModel : INotifyPropertyChanged
         set { _letter = value; OnPropertyChanged(); }
     }
 
-    public GroupModel(Group domain)
+    public GroupModel(GroupDTO groupDTO)
     {
-        _id = domain.Id;
-        Number = domain.Number;
-        Letter = domain.Letter;
+        Id = groupDTO.Id;
+        Number = groupDTO.Number;
+        Letter = groupDTO.Letter;
     }
+
 
     public event PropertyChangedEventHandler? PropertyChanged;
     public void OnPropertyChanged([CallerMemberName] string prop = "")

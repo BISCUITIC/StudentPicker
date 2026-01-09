@@ -28,9 +28,9 @@ public class GroupService : IGroupService
         _groupRepository.Add(group);
     }
 
-    public void UpdateGroup(Group group)
+    public void SaveChanges()
     {
-        _groupRepository.Update(group);
+        _groupRepository.SaveChanges();
     }
     public void DeleteGroup(int groupId)
     {
