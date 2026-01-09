@@ -67,7 +67,7 @@ public class StudentsViewModel
 
     private void DeleteStudent(StudentItemViewModel studentViewModel)
     {
-        DeleteStudentRequest request = StudentRequestMapper.ToDeleteStudentRequest(studentViewModel.Student.Id)
+        DeleteStudentRequest request = StudentRequestMapper.ToDeleteStudentRequest(studentViewModel.Student.Id);
         _applicationService.Delete(request);
         _students.Remove(studentViewModel);
     }
@@ -103,7 +103,7 @@ public class StudentsViewModel
 
     private void PickRandomStudent()
     {
-        PickStudentRequest request = StudentRequestMapper.ToPickStudentRequest(_students)
+        PickStudentRequest request = StudentRequestMapper.ToPickStudentRequest(_students);
         int? pickedId = _applicationService.Pick(request);
 
         if (pickedId is null)

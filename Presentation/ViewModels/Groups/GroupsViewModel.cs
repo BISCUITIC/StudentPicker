@@ -60,7 +60,7 @@ public class GroupsViewModel
 
     private void DeleteGroup(GroupItemViewModel groupViewModel)
     {
-        DeleteGroupRequest request = GroupRequestMapper.ToDeleteGroupRequest(groupViewModel.Group.Id)
+        DeleteGroupRequest request = GroupRequestMapper.ToDeleteGroupRequest(groupViewModel.Group.Id);
         _deleteGroupUseCase.Execute(request);
         _groups.Remove(groupViewModel);
     }
