@@ -14,4 +14,9 @@ public partial class MainWindow : Window
         
         DataContext = windowContext;
     }
+
+    private void ScrollViewer_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+    {
+
+    }
 }

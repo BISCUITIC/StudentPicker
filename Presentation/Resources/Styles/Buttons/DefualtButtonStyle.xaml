@@ -22,7 +22,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}"
                                 Height="{TemplateBinding Height}"
-                                Width="{TemplateBinding Width}" >
+                                Width="{TemplateBinding Width}">
                             <ContentControl Padding="{TemplateBinding Padding}"
                                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
