@@ -21,8 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="12*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1.2*"></RowDefinition>
         </Grid.RowDefinitions>
         
         <ScrollViewer Grid.Row="0" 
@@ -53,16 +52,21 @@
                           ItemTemplate="{StaticResource StudentItemTemplate}"/>
         </ScrollViewer>
         
-        <DockPanel Grid.Row="2">
-            <Button x:Name="AddStudentButton" DockPanel.Dock="Right"
+        <Grid Grid.Row="1" Panel.ZIndex="1">
+            <Button x:Name="AddStudentButton"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"                                        
+                    Margin="17,10"
+                    Width="40" Height="40"
                     Content="+"
                     Style="{StaticResource AddButtonStyle}"
                     Command="{Binding StudentsViewModel.AddStudentCommand}"/>
-        </DockPanel>
+        </Grid>
         
-        <DockPanel Grid.Row="3">
+        <DockPanel Grid.Row="2">
             <Button x:Name="RandomButton" 
                     Content="Random"
+                    Margin="17,10"
                     Style="{StaticResource RandomButtonStyle}"
                     Command="{Binding StudentsViewModel.PickRandomStudentCommand}"/>
         </DockPanel>

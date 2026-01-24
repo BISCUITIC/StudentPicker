@@ -11,7 +11,7 @@
 
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsExcluded}" Value="False">
-                <Setter Property="Background" Value="#FF313131"/>
+                <Setter Property="Background" Value="#FF2D2D2D"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=IsExcluded}" Value="True">
