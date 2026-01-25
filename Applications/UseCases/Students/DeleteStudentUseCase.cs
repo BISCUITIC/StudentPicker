@@ -16,5 +16,6 @@ public class DeleteStudentUseCase : IDeleteStudentUseCase
     public void Execute(DeleteStudentRequest deleteRequest)
     {
         _studentService.DeleteStudent(deleteRequest.Id);
+        _studentService.SaveChanges();
     }
 }

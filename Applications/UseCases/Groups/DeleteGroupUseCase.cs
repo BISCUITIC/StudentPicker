@@ -20,5 +20,6 @@ public class DeleteGroupUseCase : IDeleteGroupUseCase
             throw new GroupNotFoundException();
        
         _groupService.DeleteGroup(deleteRequest.Id);
+        _groupService.SaveChanges();
     }
 }

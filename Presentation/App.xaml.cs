@@ -132,7 +132,10 @@ public partial class App : System.Windows.Application
         using var scope = _host.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
 
-        db.Database.EnsureCreated();
+        if (!db.Database.CanConnect())
+        {
+            db.Database.EnsureCreated();
+        }        
 
         MainWindow window = _host.Services.GetRequiredService<MainWindow>();
         window.Show();
