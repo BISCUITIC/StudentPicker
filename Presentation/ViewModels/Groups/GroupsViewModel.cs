@@ -1,10 +1,12 @@
-﻿using Application.Services.Interfaces.Facades;
+﻿using Application.Exceptions;
+using Application.Services.Interfaces.Facades;
 using Application.UseCases.Groups.DTO;
 using CommunityToolkit.Mvvm.Input;
 using Presentation.Models;
 using Presentation.Services.Dialogs.DTO;
 using Presentation.Services.Dialogs.Interfaces;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels.Groups;
@@ -52,8 +54,15 @@ public class GroupsViewModel
     private void DeleteGroup(GroupItemViewModel groupViewModel)
     {
         DeleteGroupRequest request = GroupRequestMapper.ToDeleteGroupRequest(groupViewModel.Group.Id);
-        _groupApplicationService.Delete(request);
-        _groups.Remove(groupViewModel);
+        try
+        {
+            _groupApplicationService.Delete(request);
+            _groups.Remove(groupViewModel);
+        }
+        catch (GroupNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
     private void UpdateGroup(GroupItemViewModel groupViewModel)
@@ -64,8 +73,15 @@ public class GroupsViewModel
             return;
 
         UpdateGroupRequest request = GroupRequestMapper.ToUpdateGroupRequest(result, groupViewModel.Group.Id);
-        _groupApplicationService.Update(request);
-        GroupModelMapper.UpdateModelFromDialogResult(result, groupViewModel.Group);
+        try
+        {
+            _groupApplicationService.Update(request);
+            GroupModelMapper.UpdateModelFromDialogResult(result, groupViewModel.Group);
+        }
+        catch (GroupNotFoundException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
     private void AddGroup()
@@ -76,10 +92,17 @@ public class GroupsViewModel
             return;
 
         AddGroupRequest request = GroupRequestMapper.ToAddGroupRequest(result);
-        GroupDTO groupDTO = _groupApplicationService.Add(request);
-        GroupModel groupModel = GroupModelMapper.ToModel(groupDTO);
+        try
+        {
+            GroupDTO groupDTO = _groupApplicationService.Add(request);
+            GroupModel groupModel = GroupModelMapper.ToModel(groupDTO);
 
-        AddNewGroupViewModel(groupModel);
+            AddNewGroupViewModel(groupModel);
+        }
+        catch (GroupAlreadyExistException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
     private void AddNewGroupViewModel(GroupModel groupModel)

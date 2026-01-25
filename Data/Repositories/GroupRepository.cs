@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Infrastructure.Repositories;
 
@@ -25,8 +26,16 @@ public class GroupRepository : IGroupRepository
     }
     public void Add(Group group)
     {
-        _context.Groups.Add(group);
-        _context.SaveChanges();
+        _context.Groups.Add(group);    
+    }
+
+    public bool Exist(int number, char letter)
+    {
+        Group? group = _context.Groups
+                               .FirstOrDefault(group => group.Number == number && 
+                                                        group.Letter == letter);
+        
+        return (group is null) ? false : true;
     }
 
     public void Remove(int groupId)

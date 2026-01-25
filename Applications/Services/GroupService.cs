@@ -18,9 +18,9 @@ public class GroupService : IGroupService
         return _groupRepository.GetAll();
     }
 
-    public Group? GetGroup(int groupId)
+    public Group GetGroup(int id)
     {
-        return _groupRepository.GetById(groupId);
+        return _groupRepository.GetById(id);
     }
 
     public void AddGroup(Group group)
@@ -28,10 +28,21 @@ public class GroupService : IGroupService
         _groupRepository.Add(group);
     }
 
+    public bool Exist(int number, char letter)
+    {
+        return _groupRepository.Exist(number, letter);
+    }
+
+    public bool Exist(int id)
+    {
+        return (_groupRepository.GetById(id) is null) ? false : true;
+    }
+
     public void SaveChanges()
     {
         _groupRepository.SaveChanges();
     }
+
     public void DeleteGroup(int groupId)
     {
         _groupRepository.Remove(groupId);

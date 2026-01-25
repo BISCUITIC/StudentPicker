@@ -1,8 +1,10 @@
 ﻿using Application.Services;
+using Application.Exceptions;
 using Application.Services.Interfaces;
 using Application.UseCases.Groups.DTO;
 using Application.UseCases.Groups.Interfaces;
 using Domain.Entities;
+
 
 namespace Application.UseCases.Groups;
 
@@ -18,7 +20,11 @@ public class AddGroupUseCase : IAddGroupUseCase
     public GroupDTO Execute(AddGroupRequest addRequest)
     {
         Group group = Mapper.ToGroup(addRequest);
-        _groupService.AddGroup(group);
+
+        if(_groupService.Exist(addRequest.Number, addRequest.Letter))                
+            throw new GroupAlreadyExistException(addRequest.Number, addRequest.Letter);
+        
+        _groupService.AddGroup(group);        
         return Mapper.ToGroupDTO(group);
     }
 }

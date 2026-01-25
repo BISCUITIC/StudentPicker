@@ -1,4 +1,5 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Exceptions;
+using Application.Services.Interfaces;
 using Application.UseCases.Groups.DTO;
 using Application.UseCases.Groups.Interfaces;
 
@@ -15,6 +16,9 @@ public class DeleteGroupUseCase : IDeleteGroupUseCase
 
     public void Execute(DeleteGroupRequest deleteRequest)
     {
+        if (!_groupService.Exist(deleteRequest.Id))        
+            throw new GroupNotFoundException();
+       
         _groupService.DeleteGroup(deleteRequest.Id);
     }
 }

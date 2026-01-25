@@ -1,4 +1,5 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Exceptions;
+using Application.Services.Interfaces;
 using Application.UseCases.Groups.DTO;
 using Application.UseCases.Groups.Interfaces;
 using Domain.Entities;
@@ -16,6 +17,9 @@ public class UpdateGroupUseCase : IUpdateGroupUseCase
 
     public void Execute(UpdateGroupRequest updateRequest)
     {
+        if (!_groupService.Exist(updateRequest.Id))
+            throw new GroupNotFoundException();
+
         Group group = _groupService.GetGroup(updateRequest.Id);
 
         group.UpdateNumber(updateRequest.Number);

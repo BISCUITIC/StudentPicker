@@ -12,11 +12,7 @@ public class ApplicationContext : DbContext
     public DbSet<Group> Groups { get; set; } = null!;
     public DbSet<Student> Students { get; set; } = null!;
 
-    private readonly IConfigurationRoot _connection;
-
-    public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-    {       
-    }
+    public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
