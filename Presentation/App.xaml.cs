@@ -39,20 +39,32 @@ public partial class App : System.Windows.Application
 
     public App()
     {
-        var config = new ConfigurationBuilder()
-                         .SetBasePath(Directory.GetCurrentDirectory())
-                         .AddJsonFile("appsettings.json")
-                         .Build();
-        var connectionString = config.GetConnectionString("DefaultConnection");
+        //var config = new ConfigurationBuilder()
+        //                 .SetBasePath(Directory.GetCurrentDirectory())
+        //                 .AddJsonFile("appsettings.json")
+        //                 .Build();
+        //var connectionString = config.GetConnectionString("DefaultConnection");
+        //var options = new DbContextOptionsBuilder<ApplicationContext>()
+        //                  .UseNpgsql(connectionString)
+        //                  .Options;
+
+        var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                       "StudentPicker");
+
+        Directory.CreateDirectory(appDataPath);
+
+        var dbPath = Path.Combine(appDataPath, "studentpicker.db");
+
         var options = new DbContextOptionsBuilder<ApplicationContext>()
-                          .UseNpgsql(connectionString)
-                          .Options;
+                          .UseSqlite($"Data Source={dbPath}");        
 
         _host = Host.CreateDefaultBuilder()
                     .ConfigureServices((context, services) =>
                     {
-                        services.AddSingleton(options);
-                        services.AddDbContext<ApplicationContext>();
+                        //services.AddSingleton(options);
+                        services.AddDbContext<ApplicationContext>(options =>
+                            options.UseSqlite($"Data Source={dbPath}")
+                        );
 
                         #region Services
                         services.AddScoped<IGroupRepository, GroupRepository>();
@@ -117,8 +129,17 @@ public partial class App : System.Windows.Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        using var scope = _host.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+
+        if (!db.Database.CanConnect())
+        {
+            db.Database.EnsureCreated();
+        }        
+
         MainWindow window = _host.Services.GetRequiredService<MainWindow>();
         window.Show();
+
         base.OnStartup(e);
     }
 }

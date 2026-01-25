@@ -24,7 +24,8 @@ public class AddGroupUseCase : IAddGroupUseCase
         if(_groupService.Exist(addRequest.Number, addRequest.Letter))                
             throw new GroupAlreadyExistException(addRequest.Number, addRequest.Letter);
         
-        _groupService.AddGroup(group);        
+        _groupService.AddGroup(group);    
+        _groupService.SaveChanges();
         return Mapper.ToGroupDTO(group);
     }
 }
