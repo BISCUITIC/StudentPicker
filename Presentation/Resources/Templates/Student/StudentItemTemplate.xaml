@@ -7,6 +7,24 @@
             <Setter Property="CornerRadius" Value="15"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="Margin" Value="2"/>
+
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        <TranslateTransform X="0"/>
+                    </TransformGroup>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="#FF2D2D2D"/>
+                </Setter.Value>
+            </Setter>
+
         </Style.Setters>
 
         <Style.Triggers>
@@ -15,8 +33,54 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Path=IsExcluded}" Value="True">
-                <Setter Property="Background" Value="#FFB20000"/>
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.X)"
+                                To="-10"
+                                Duration="0:0:0.25"
+                                AutoReverse="True"/>
+                            <ColorAnimation 
+                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                To="#FFB20000" 
+                                Duration="0:0:0.25"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
             </DataTrigger>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                To="1.025"
+                                Duration="0:0:0.15"/>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                To="1.025"
+                                Duration="0:0:0.15"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                               Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                To="1"
+                                Duration="0:0:0.15"/>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                To="1"
+                                Duration="0:0:0.15"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -30,38 +94,42 @@
     </Style>
 
     <DataTemplate x:Key="StudentItemTemplate">
-        <Border Name="StudenItemPanelBorder"
-                Style="{StaticResource StudentPanelBorderStyle}">
+        <Border x:Name="StudenItemPanelBorder"
+                Style="{StaticResource StudentPanelBorderStyle}" >
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
                     <i:InvokeCommandAction Command="{Binding ToggleExludedCommand}"/>
+                </i:EventTrigger>
+
+                <i:EventTrigger EventName="MouseRightButtonDown">
+                    <i:ChangePropertyAction TargetName="Menu" PropertyName="Visibility" Value="Visible"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
             <Border.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding DeleteStudentCommand}"
-                              Header="Delete"/>
+                                Header="Delete"/>
                     <MenuItem Command="{Binding UpdateStudentCommand}"
-                              Header="Edit"/>
+                                Header="Edit"/>
                 </ContextMenu>
             </Border.ContextMenu>
 
-            <StackPanel Orientation="Horizontal" 
-                        Background="{Binding ElementName=StudentItemTemplate, Path=Background}"                                
-                        Tag="{Binding ElementName=CoreWindow}">
-                
-                <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                           Text="{Binding Path=Student.Name}"
-                           Background="{Binding ElementName=StudentItemTemplate, Path=Background}" >
-                </TextBlock>
+            <StackPanel 
+                Orientation="Horizontal" 
+                Background="{Binding ElementName=StudentItemTemplate, Path=Background}"                                
+                Tag="{Binding ElementName=CoreWindow}">
 
-                <TextBlock Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
-                           Text="{Binding Path=Student.SecondName}"
-                           Background="{Binding ElementName=StudentItemTemplate, Path=Background}" >
-                </TextBlock>
-                
+                <TextBlock 
+                    Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
+                    Text="{Binding Path=Student.Name}"
+                    Background="{Binding ElementName=StudentItemTemplate, Path=Background}"/>
+
+                <TextBlock 
+                    Style="{StaticResource ResourceKey=StudentTextBlockStyle}" 
+                    Text="{Binding Path=Student.SecondName}"
+                    Background="{Binding ElementName=StudentItemTemplate, Path=Background}" />
             </StackPanel>
         </Border>
     </DataTemplate>
